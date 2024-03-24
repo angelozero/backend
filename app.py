@@ -95,6 +95,8 @@ def departament_detail(id):
 
 
 def user_detail_response(user):
+    if user is None:
+        return jsonify({"error": "Usuário não encontrado"}), 404
     return {
         "id": user.id,
         "name": user.name,

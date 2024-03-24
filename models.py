@@ -85,11 +85,7 @@ class User(db.Model):
         users = User.query.paginate(page=page, per_page=total_page)
 
         for user in users.items:
-            departament = (
-                Departament.query.filter_by(id=user.id_departament).first()
-                if user.id_departament
-                else None
-            )
+            departament = Departament.query.filter_by(id=user.departament_id).first()
             formatted_user = {
                 "id": user.id,
                 "name": user.name,
