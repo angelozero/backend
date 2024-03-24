@@ -78,6 +78,23 @@ def create_user():
     return user_detail_response(new_user), 201
 
 
+@app.route("/usuario/<id>", methods=["PUT"])
+def update_user(id):
+    user = User.query.get(id)
+
+    if user is None:
+        return jsonify({"error": "Usuário não encontrado"}), 404
+
+    name = request.json["name"]
+    email = request.json["email"]
+
+    user.name = name
+    user.email = email
+
+    db.session.commit()
+    return user_detail_response(user), 201
+
+
 @app.route("/usuario/<id>", methods=["DELETE"])
 def delete_user(id):
     user = User.query.get(id)
