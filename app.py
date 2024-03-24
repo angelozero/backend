@@ -52,7 +52,7 @@ def user_detail(id):
 
 
 @app.route("/usuario", methods=["POST"])
-def new_user():
+def create_user():
     data = request.json
 
     # Verifica se o campo de Departamento esta presente
@@ -78,6 +78,18 @@ def new_user():
     return user_detail_response(new_user), 201
 
 
+@app.route("/usuario/<id>", methods=["DELETE"])
+def delete_user(id):
+    user = User.query.get(id)
+
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "Usuário excluído com sucesso"}), 200
+    else:
+        return jsonify({"error": "Usuário não foi encontrado"}), 404
+
+
 @app.route("/departamentos", methods=["GET"])
 def list_departament():
     all_departaments = Departament.query.all()
@@ -92,6 +104,37 @@ def departament_detail(id):
         "id": departament.id,
         "departament": departament.name,
     }
+
+
+@app.route("/departamento", methods=["POST"])
+def create_departament():
+    data = request.json
+
+    # Verifica se todos os campos necessários estão presentes
+    if "name" not in data:
+        return (
+            jsonify(
+                {"error": "O campo nome para o cadastro de Departamento é obrigatório"}
+            ),
+            400,
+        )
+
+    # Verifica se já existe um departamento com o mesmo nome
+    existing_departament = Departament.query.filter_by(
+        name=data["name"].upper()
+    ).first()
+    if existing_departament:
+        return jsonify({"error": "Departamento já existe"}), 409  # 409 - Conflict
+
+    new_departament = Departament(name=data["name"].upper())
+
+    db.session.add(new_departament)
+    db.session.commit()
+
+    return (
+        jsonify({"id": new_departament.id, "name": new_departament.name}),
+        201,
+    )  # 201 - Created
 
 
 def user_detail_response(user):

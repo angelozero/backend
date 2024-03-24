@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import jsonify
 from datetime import datetime
 
 import string
@@ -17,7 +16,7 @@ class Departament(db.Model):
     # initial values into the departments table
     @staticmethod
     def insert_initial_values():
-        departaments = ["Desenvolvimento", "Qualidade", "Marketing", "Administrativo"]
+        departaments = ["DESENVOLVIMENTO", "QUALIDADE", "MARKETING", "ADMINISTRATIVO"]
         for departament in departaments:
             if not Departament.query.filter_by(name=departament).first():
                 new_departament = Departament(name=departament)
