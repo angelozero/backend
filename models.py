@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
 from datetime import datetime
 
+import string
 import random
 import math
 
@@ -28,6 +29,8 @@ class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    second_name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
     departament_id = db.Column(db.Integer, db.ForeignKey("departament.id"))
     departament = db.relationship("Departament", backref=db.backref("users", lazy=True))
     date_time_creation = db.Column(db.DateTime)
@@ -62,6 +65,13 @@ class User(db.Model):
         for name in users_name:
             new_user = User(
                 name=name,
+                second_name="".join(
+                    random.choice(string.ascii_lowercase) for i in range(10)
+                ).capitalize(),
+                email=name.lower()
+                + "_"
+                + "".join(random.choice(string.digits) for i in range(3))
+                + "@email.com",
                 departament_id=random.randint(1, 4),
                 date_time_creation=datetime.now(),
             )
@@ -73,9 +83,13 @@ class User(db.Model):
     def get_paginated_users(page, total_page):
         formatted_results = []
         users = User.query.paginate(page=page, per_page=total_page)
-        
+
         for user in users.items:
-            departament = get_departament_by_id(user.departament_id)
+            departament = (
+                Departament.query.filter_by(id=user.id_departament).first()
+                if user.id_departament
+                else None
+            )
             formatted_user = {
                 "id": user.id,
                 "name": user.name,
@@ -83,7 +97,9 @@ class User(db.Model):
                     "id": departament.id,
                     "name": departament.name,
                 },
-                "date_time_creation": user.date_time_creation.strftime("%Y-%m-%d %H:%M:%S"),
+                "date_time_creation": user.date_time_creation.strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
                 "date_time_updated": (
                     user.date_time_updated.strftime("%Y-%m-%d %H:%M:%S")
                     if user.date_time_updated
@@ -98,11 +114,3 @@ class User(db.Model):
             "total_records": users.total,
             "results": formatted_results,
         }
-
-
-def get_departament_by_id(id_departament):
-    departament = Departament.query.filter_by(id=id_departament).first()
-    if departament:
-        return departament
-    else:
-        return None

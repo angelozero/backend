@@ -11,6 +11,7 @@ pip3 install flask-openapi3
 
 
 start -> . .venv/bin/activate
+stop -> deactivate
 
 
 INSERT INTO departament (name) VALUES ('Desenvolvimento');
