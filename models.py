@@ -14,7 +14,7 @@ class Departament(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
-    # initial values into the departments table"
+    # initial values into the departments table
     @staticmethod
     def insert_initial_values():
         departaments = ["Desenvolvimento", "Qualidade", "Marketing", "Administrativo"]

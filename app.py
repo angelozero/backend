@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
-
 from models import User, Departament, db
+from datetime import datetime
+
 
 app = Flask(__name__)
 
@@ -44,9 +45,56 @@ def list_users():
     return paginated_users
 
 
-@app.route("/usuarios/<id>", methods=["GET"])
+@app.route("/usuario/<id>", methods=["GET"])
 def user_detail(id):
     user = User.query.get(id)
+    return user_detail_response(user)
+
+
+@app.route("/usuario", methods=["POST"])
+def new_user():
+    data = request.json
+
+    # Verifica se o campo de Departamento esta presente
+    if "name" not in data or "departament_id" not in data:
+        return jsonify({"error": "Não foi enviado a informação de departamento"}), 400
+
+    # Verifica se o ID do departamento é válido
+    if Departament.query.filter_by(id=data["departament_id"]).first() is None:
+        return jsonify({"error": "Departamento inválido"}), 400
+
+    new_user = User(
+        name=data["name"],
+        second_name=data["second_name"],
+        email=data["email"],
+        departament_id=data["departament_id"],
+        date_time_creation=datetime.now(),
+        date_time_updated=None,
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return user_detail_response(new_user), 201
+
+
+@app.route("/departamentos", methods=["GET"])
+def list_departament():
+    all_departaments = Departament.query.all()
+    results = departament_schema.dump(all_departaments)
+    return jsonify(results)
+
+
+@app.route("/departamento/<id>", methods=["GET"])
+def departament_detail(id):
+    departament = Departament.query.get(id)
+    return {
+        "id": departament.id,
+        "departament": departament.name,
+    }
+
+
+def user_detail_response(user):
     return {
         "id": user.id,
         "name": user.name,
@@ -62,22 +110,6 @@ def user_detail(id):
             if user.date_time_updated
             else ""
         ),
-    }
-
-
-@app.route("/departamentos", methods=["GET"])
-def list_departament():
-    all_departaments = Departament.query.all()
-    results = departament_schema.dump(all_departaments)
-    return jsonify(results)
-
-
-@app.route("/departamentos/<id>", methods=["GET"])
-def departament_detail(id):
-    departament = Departament.query.get(id)
-    return {
-        "id": departament.id,
-        "departament": departament.name,
     }
 
 
