@@ -223,7 +223,6 @@ def employee_detail_response(employee):
     }
 
 def is_valid_email(email):
-    # Expressão regular para validar o formato do email
     regex = r'^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return re.match(regex, email) is not None
     
