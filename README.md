@@ -59,7 +59,7 @@ python3 -m venv .venv
     - Toda configuração para acesso ao banco de dados se encontra no arquivo `.env`
 
 - Criação e Carga Inicial:
-    - A criação das tabelas ocorre automaticamente no momento da execução da api
+    - A criação das tabelas e suas correlações ocorre automaticamente no momento da execução da api
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
         - Exclusão automática de todas as tabelas
         - Criação automática de todas as tabelas
