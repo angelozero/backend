@@ -44,15 +44,15 @@ python3 -m venv .venv
     pip3 install marshmallow-sqlalchemy
     ```
 
-## Execução da API - Swagger
+## Execução da API
 
 - Para executar a API, use o comando:
     ```shell
     flask run
     ```
-- Url para acesso ao Swagger
+- Url para acesso a api
 
-    - http://127.0.0.1:5000/apidocs/
+    - http://127.0.0.1:5000/
 
 ## Configuração, criação e carga inicial de dados
 - Configuração:
