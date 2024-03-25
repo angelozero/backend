@@ -84,7 +84,7 @@ class User(db.Model):
 
         if department:
             users_query = User.query.join(Department).filter(
-                Department.name == department
+                Department.name == department.upper()
             )
         else:
             users_query = User.query

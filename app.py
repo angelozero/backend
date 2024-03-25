@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
+from flasgger import Swagger
 from models import User, Department, db
 from datetime import datetime
 from dotenv import load_dotenv
@@ -22,6 +23,7 @@ with app.app_context():
     User.insert_initial_values()
 
 ma = Marshmallow(app)
+swagger = Swagger(app)
 
 
 class UserSchema(ma.Schema):
@@ -42,10 +44,49 @@ department_schema = DepartmentSchema(many=True)
 
 @app.route("/usuarios", methods=["GET"])
 def list_users():
+    """
+    Listando usuários
+    ---
+    parameters:
+      - name: pagina
+        in: query
+        description: Número da página correspondente a pesquisa
+        required: false
+        default: 1
+      - name: total
+        in: query
+        type: integer
+        description: Total de registros que serão retornados por página
+        required: false
+        default: 5
+      - name: departamento
+        in: query
+        type: string
+        description: Nome do departamento
+        required: false
+    responses:
+      200:
+        description: Um lista páginada de usuários
+        schema:
+          type: array
+          items:
+            id:
+              type: integer
+              description: Id do usuário
+            name:
+              type: string
+              description: Nome do usuário
+            department:
+              type: string
+              description: Nome do departamento
+    """
+    department_name = request.args.get("departamento", None, type=str)
+    department_name = department_name.upper() if department_name else None
+
     paginated_users = User.get_paginated_users(
         request.args.get("pagina", 1, type=int),
         request.args.get("total", 5, type=int),
-        request.args.get("departamento", None, type=str),
+        department_name,
     )
 
     if paginated_users is None:

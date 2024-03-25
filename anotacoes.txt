@@ -4,11 +4,12 @@ pip3 install SQLAlchemy
 pip3 install Flask-SQLAlchemy
 pip3 install python-dotenv
 pip3 install psycopg2-binary
-pip3 install flask-swagger
-pip3 install flask-restful 
-pip3 install flask-swagger-ui
+pip3 install flasgger
 
 
 init env ->  python3 -m venv .venv
 start -> . .venv/bin/activate
 stop -> deactivate
+http://127.0.0.1:5000/apidocs/
+https://petstore3.swagger.io/#/pet/findPetsByStatus
+https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml
