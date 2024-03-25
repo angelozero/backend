@@ -188,7 +188,7 @@ def update_user(id):
         db.session.commit()
         return user_detail_response(user), 201
     else:
-        return jsonify({"error": "Nenhum dado para atualização fornecido"}), 200
+        return jsonify({"message": "Nenhum dado para atualização fornecido"}), 200
 
 
 @app.route("/usuario/<id>", methods=["DELETE"])
