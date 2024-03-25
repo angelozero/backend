@@ -150,11 +150,13 @@ python3 -m venv .venv
 
 ### Documentação das dependências utilizadas
 ---
-- [Flask](https://flask.palletsprojects.com/en/3.0.x/quickstart/)
-- [Flask Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/)
-- [SQL Alchemy](https://docs.sqlalchemy.org/en/20/orm/quickstart.html)
-- [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/)
-- [Python Dotenv](https://medium.com/@habbema/dotenv-9915bd642533)
-- [Psycopg2 Binary](https://www.psycopg.org/docs/install.html#quick-install)
-- [Flasgger](https://github.com/flasgger/flasgger/blob/master/README.md)
-- [Marshmallow Sqlalchemy](https://marshmallow-sqlalchemy.readthedocs.io/en/latest/)
+| Plugin | Documentação |
+| ------ | ------------ |
+| Flask | https://flask.palletsprojects.com/en/3.0.x/quickstart/ |
+| Flask Marshmallow | https://flask-marshmallow.readthedocs.io/en/latest/ |
+| SQL Alchemy | https://docs.sqlalchemy.org/en/20/orm/quickstart.html |
+| Flask SQLAlchemy | https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/ |
+| Python Dotenv | https://medium.com/@habbema/dotenv-9915bd642533 |
+| Psycopg2 Binary | https://www.psycopg.org/docs/install.html#quick-install |
+| Flasgger | https://github.com/flasgger/flasgger/blob/master/README.md |
+| Marshmallow Sqlalchemy | https://marshmallow-sqlalchemy.readthedocs.io/en/latest/ |
