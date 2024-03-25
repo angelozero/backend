@@ -5,11 +5,22 @@ pip3 install Flask-SQLAlchemy
 pip3 install python-dotenv
 pip3 install psycopg2-binary
 pip3 install flasgger
+pip3 install marshmallow-sqlalchemy
 
+criar .env na pasta raiz
+    - adicionar a chave SQLALCHEMY_DATABASE_URI
+    - acessar o site https://www.elephantsql.com/ ( se autenticar )
+    - criar uma nova instancia com o nome empresa
+    - acessar instancia e recuperar o valor dentro de URL
+    - EX.: postgres://ewdmssig:5-GGe88HTw2i6DEngLVvcVY8dzpPcxVu@castor.db.elephantsql.com/ewdmssig
+    - no arquiv .env substituir o o valor da url de postgres para postgresql
+        - postgresql://ewdmssig:5-GGe88HTw2i6DEngLVvcVY8dzpPcxVu@castor.db.elephantsql.com/ewdmssig
 
-init env ->  python3 -m venv .venv
-start -> . .venv/bin/activate
-stop -> deactivate
+init env  ->  python3 -m venv .venv
+start env -> . .venv/bin/activate
+(instalar dependencias)
+run api   -> run flask
+stop env  -> deactivate
 http://127.0.0.1:5000/apidocs/
 https://petstore3.swagger.io/#/pet/findPetsByStatus
 https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml
