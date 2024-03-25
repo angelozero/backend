@@ -24,3 +24,34 @@ stop env  -> deactivate
 http://127.0.0.1:5000/apidocs/
 https://petstore3.swagger.io/#/pet/findPetsByStatus
 https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml
+
+'''
+Recursos Principais:
+    - Funcionários: Permite a criação, atualização, listagem e exclusão de funcionários.
+    - Departamentos: Permite a listagem de todos os departamentos disponíveis.
+
+    Endpoints:
+    - /funcionarios:
+      - POST: Cria um novo funcionário com os detalhes fornecidos e o associa a um departamento existente.
+      - GET: Lista todos os funcionários cadastrados.
+
+    - /funcionarios/{id}:
+      - GET: Obtém os detalhes de um funcionário específico pelo seu ID.
+      - PUT: Atualiza os detalhes de um funcionário existente.
+      - DELETE: Exclui um funcionário existente pelo seu ID.
+
+    - /departamentos:
+      - GET: Lista todos os departamentos disponíveis.
+
+    Modelo de Dados:
+    - Funcionário:
+      - ID: Identificador único do funcionário.
+      - Nome: Nome do funcionário.
+      - Email: Endereço de email do funcionário.
+      - Departamento: Departamento ao qual o funcionário está vinculado.
+      - Data de Criação: Data e hora em que o registro do funcionário foi criado.
+
+    - Departamento:
+      - ID: Identificador único do departamento.
+      - Nome: Nome do departamento.
+'''

@@ -1,0 +1,253 @@
+swagger: '2.0'
+info:
+  title: Gerenciamento de Funcionários API
+  description: |-
+    Sobre a API:
+      - A API de gerenciamento de funcionários permite a criação, atualização, listagem e exclusão de funcionários que estão vinculados a departamentos. 
+      - Cada funcionário é associado a um departamento específico e possui informações como nome, email e data de criação.
+
+    Links uteis:
+    - [Repositório Cadastra Funcionário API](https://github.com/angelozero/backend)
+  version: 1.0.0
+  contact:
+    email: angelo.akm@gmail.com
+basePath: /
+tags:
+  - name: Funcionários
+    description: Operações relacionadas a funcionários
+  - name: Departamentos
+    description: Operações relacionadas a departamentos
+paths:
+  /funcionarios:
+    get:
+      tags:
+        - Funcionários
+      summary: Listando funcionários
+      parameters:
+        - name: pagina
+          in: query
+          description: Correspondente à página de pesquisa
+          required: false
+          type: integer
+          default: 1
+        - name: total
+          in: query
+          description: Número de registros por página
+          required: false
+          type: integer
+          default: 5
+        - name: departamento
+          in: query
+          description: Nome do departamento
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Uma lista paginada de funcionários
+          schema:
+            type: object
+            properties:
+              page:
+                type: integer
+                description: Número da página atual
+              total_pages:
+                type: integer
+                description: Número total de páginas
+              total_records:
+                type: integer
+                description: Número total de registros
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Employee'
+    post:
+      tags:
+        - Funcionários
+      summary: Cria um novo funcionário
+      parameters:
+        - name: body
+          in: body
+          description: Dados do novo funcionário
+          required: true
+          schema:
+            $ref: '#/definitions/NewEmployee'
+      responses:
+        '201':
+          description: Funcionário criado com sucesso
+          schema:
+            $ref: '#/definitions/Employee'
+        '400':
+          description: Não foi enviado a informação de departmento, Email inválido ou Departamento inválido
+        '404':
+          description: Departamento não encontrado
+  /funcionario/{id}:
+    get:
+      tags:
+        - Funcionários
+      summary: Detalhes do funcionário
+      parameters:
+        - name: id
+          in: path
+          description: ID do funcionário
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Detalhes do funcionário
+          schema:
+            $ref: '#/definitions/Employee'
+        '404':
+          description: Funcionário não encontrado
+    put:
+      tags:
+        - Funcionários
+      summary: Atualiza um funcionário existente
+      parameters:
+        - name: id
+          in: path
+          description: ID do funcionário
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: Dados atualizados do funcionário
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateEmployee'
+      responses:
+        '200':
+          description: Funcionário atualizado com sucesso
+          schema:
+            $ref: '#/definitions/Employee'
+        '400':
+          description: Dados para atualização não enviados, email inválido ou departamento inválido
+        '404':
+          description: Funcionário ou Departamento não encontrado
+    delete:
+      tags:
+        - Funcionários
+      summary: Exclui um funcionário existente
+      parameters:
+        - name: id
+          in: path
+          description: ID do funcionário
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Funcionário excluído com sucesso
+        '404':
+          description: Funcionário não encontrado
+  /departamentos:
+    get:
+      tags:
+        - Departamentos
+      summary: Lista todos os departamentos
+      responses:
+        '200':
+          description: Lista de todos os departamentos
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Department'
+    post:
+      tags:
+        - Departamentos
+      summary: Cria um novo departamento
+      parameters:
+        - name: body
+          in: body
+          description: Dados do novo departamento
+          required: true
+          schema:
+            $ref: '#/definitions/NewDepartment'
+      responses:
+        '201':
+          description: Departamento criado com sucesso
+          schema:
+            $ref: '#/definitions/Department'
+        '400':
+          description: Requisição inválida, o campo 'name' é obrigatório
+        '409':
+          description: Conflito, departamento já existe
+  /departamento/{id}:
+    get:
+      tags:
+        - Departamentos
+      summary: Detalhes do departamento
+      parameters:
+        - name: id
+          in: path
+          description: ID do departamento
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Detalhes do departamento
+          schema:
+            $ref: '#/definitions/Department'
+        '404':
+          description: Departamento não encontrado
+definitions:
+  Employee:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID do funcionário
+      name:
+        type: string
+        description: Nome do funcionário
+      department:
+        type: string
+        description: Nome do departamento
+      date_time_creation:
+        type: string
+        format: date-time
+        description: Data e hora de criação do funcionário
+      date_time_updated:
+        type: string
+        format: date-time
+        description: Data e hora da última atualização do funcionário
+  NewEmployee:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Nome do funcionário
+      second_name:
+        type: string
+        description: Segundo nome do funcionário
+      email:
+        type: string
+        description: Email do funcionário
+      department_id:
+        type: integer
+        description: ID do departamento
+  UpdateEmployee:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Novo nome do funcionário
+      email:
+        type: string
+        description: Novo email do funcionário
+      department_id:
+        type: integer
+        description: Novo ID do departamento do funcionário
+  Department:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID do departamento
+      name:
+        type: string
+        description: Nome do departamento
+  NewDepartment:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Nome do departamento
