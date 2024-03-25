@@ -49,9 +49,19 @@ def list_users():
     )
 
     if paginated_users is None:
-        return jsonify({"error": "Não ha registros de usuários"}), 404
+        return (
+            jsonify(
+                {
+                    "page": request.args.get("pagina", 1, type=int),
+                    "total_pages": 0,
+                    "total_records": 0,
+                    "results": [],
+                }
+            ),
+            200,
+        )
 
-    return paginated_users
+    return jsonify(paginated_users)
 
 
 @app.route("/usuario/<id>", methods=["GET"])
