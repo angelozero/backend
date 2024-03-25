@@ -101,7 +101,7 @@ def list_users():
                     type: string
                     format: date-time
                     description: Data e hora da última atualização do usuário
-    """ 
+    """
     department_name = request.args.get("departamento", None, type=str)
     department_name = department_name.upper() if department_name else None
 
@@ -167,16 +167,28 @@ def update_user(id):
     if user is None:
         return jsonify({"error": "Usuário não encontrado"}), 404
 
-    name = request.json["name"]
-    email = request.json["email"]
+    name = request.json.get("name")
+    email = request.json.get("email")
+    department_id = request.json.get("department_id")
 
-    user.name = name
-    user.email = email
-    # TODO update department_id
-    user.date_time_updated = datetime.now()
+    if department_id:
+        if Department.query.filter_by(id=department_id).first() is None:
+            return jsonify({"error": "Departmento inválido"}), 400
 
-    db.session.commit()
-    return user_detail_response(user), 201
+    if name or email or department_id:
+        if name:
+            user.name = name
+        if email:
+            user.email = email
+        if department_id:
+            user.department_id = department_id
+
+        user.date_time_updated = datetime.now()
+
+        db.session.commit()
+        return user_detail_response(user), 201
+    else:
+        return jsonify({"error": "Nenhum dado para atualização fornecido"}), 200
 
 
 @app.route("/usuario/<id>", methods=["DELETE"])
