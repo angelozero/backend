@@ -79,8 +79,11 @@ python3 -m venv .venv
         // ... some code here
         ```
 - Detalhamento técnico
-    - [Detalhamento técnico sobre API e Banco]()
+    - Acesse em [Detalhamento técnico sobre API e Banco](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
 
+## Swagger
+- Acessem em http://127.0.0.1:5000/apidocs/
+    ![swagger](swagger.png)
 
 ## Documentação das dependências utilizadas
 
