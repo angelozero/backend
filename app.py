@@ -118,7 +118,7 @@ def update_employee(id):
     email = request.json.get("email")
     department_id = request.json.get("department_id")
     
-    if not is_valid_email(email):
+    if email is not None and not is_valid_email(email):
         return jsonify({"error": "Email inválido"}), 400
 
     if department_id is not None and not isinstance(department_id, int) or department_id == 0:
