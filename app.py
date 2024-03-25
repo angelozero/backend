@@ -66,20 +66,42 @@ def list_users():
         required: false
     responses:
       200:
-        description: Um lista páginada de usuários
+        description: Uma lista paginada de usuários
         schema:
-          type: array
-          items:
-            id:
+          type: object
+          properties:
+            page:
               type: integer
-              description: Id do usuário
-            name:
-              type: string
-              description: Nome do usuário
-            department:
-              type: string
-              description: Nome do departamento
-    """
+              description: Número da página atual
+            total_pages:
+              type: integer
+              description: Número total de páginas
+            total_records:
+              type: integer
+              description: Número total de registros
+            results:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Id do usuário
+                  name:
+                    type: string
+                    description: Nome do usuário
+                  department:
+                    type: string
+                    description: Nome do departamento
+                  date_time_creation:
+                    type: string
+                    format: date-time
+                    description: Data e hora de criação do usuário
+                  date_time_updated:
+                    type: string
+                    format: date-time
+                    description: Data e hora da última atualização do usuário
+    """ 
     department_name = request.args.get("departamento", None, type=str)
     department_name = department_name.upper() if department_name else None
 
@@ -150,6 +172,8 @@ def update_user(id):
 
     user.name = name
     user.email = email
+    # TODO update department_id
+    user.date_time_updated = datetime.now()
 
     db.session.commit()
     return user_detail_response(user), 201
