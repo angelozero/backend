@@ -148,8 +148,8 @@ python3 -m venv .venv
         ```
 
 
-### Documentação das dependências utilizadas
----
+## Documentação das dependências utilizadas
+
 | Plugin | Documentação |
 | ------ | ------------ |
 | Flask | https://flask.palletsprojects.com/en/3.0.x/quickstart/ |
