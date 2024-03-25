@@ -13,7 +13,6 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
-    # Running an initial load with random departments
     @staticmethod
     def insert_initial_values():
         departments = ["DESENVOLVIMENTO", "QUALIDADE", "MARKETING", "ADMINISTRATIVO"]
@@ -35,7 +34,6 @@ class Employee(db.Model):
     date_time_creation = db.Column(db.DateTime)
     date_time_updated = db.Column(db.DateTime)
 
-    # Running an initial load with random employee data
     @staticmethod
     def insert_initial_values():
         employees_name = [
@@ -77,7 +75,6 @@ class Employee(db.Model):
             db.session.add(new_employee)
         db.session.commit()
 
-    # Executing a query paged by: page number, total records and department name
     @staticmethod
     def get_paginated_employees(page, total_page, department):
         formatted_results = []
