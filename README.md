@@ -83,7 +83,11 @@ python3 -m venv .venv
 
 ## Swagger
 - Acessem em http://127.0.0.1:5000/apidocs/
-    ![swagger](swagger.png)
+    ![swagger](./images/swagger.png)
+
+## Postman
+- Importar para dentro do postman o arquivo `postman_collection.json`
+![postman](./images/postman.png)
 
 ## Documentação das dependências utilizadas
 
