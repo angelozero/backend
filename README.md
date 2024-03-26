@@ -66,9 +66,9 @@ python3 -m venv .venv
         - Carga inicial com 4 departamentos gerados em tempo de execução
         - Carga inicial com 20 funcionários gerados em tempo de execução, vinculados a um departamento aleatório
         ```python
-        // arquivo app.py
+        # arquivo app.py
         
-        // ... some code here 
+        # ... some code here 
         
         with app.app_context():
         db.drop_all()
@@ -76,7 +76,7 @@ python3 -m venv .venv
         Department.insert_initial_values()
         Employee.insert_initial_values()
 
-        // ... some code here
+        # ... some code here
         ```
 - Detalhamento técnico
     - Acesse em [Detalhamento técnico sobre API e Banco](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
