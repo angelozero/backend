@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 from flasgger import Swagger
 from models import Employee, Department, db
 from datetime import datetime
@@ -14,7 +15,8 @@ SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 db.init_app(app)
 with app.app_context():

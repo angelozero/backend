@@ -95,6 +95,7 @@ python3 -m venv .venv
 | ------ | ------------ |
 | Flask | https://flask.palletsprojects.com/en/3.0.x/quickstart/ |
 | Flask Marshmallow | https://flask-marshmallow.readthedocs.io/en/latest/ |
+| Flask CORS | https://flask-cors.readthedocs.io/en/latest/ |
 | SQL Alchemy | https://docs.sqlalchemy.org/en/20/orm/quickstart.html |
 | Flask SQLAlchemy | https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/ |
 | Python Dotenv | https://medium.com/@habbema/dotenv-9915bd642533 |
