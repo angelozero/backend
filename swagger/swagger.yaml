@@ -88,7 +88,10 @@ paths:
           schema:
             $ref: '#/definitions/Employee'
         '400':
-          description: Não foi enviado a informação de departmento, Email inválido ou Departamento inválido
+          description: |- 
+            Nome não foi enviado ou está vazio
+            Email não foi enviado ou está vazio
+            Departamento inválido
         '404':
           description: Departamento não encontrado
   /funcionario/{id}:
@@ -131,7 +134,10 @@ paths:
           schema:
             $ref: '#/definitions/Employee'
         '400':
-          description: Dados para atualização não enviados, email inválido ou departamento inválido
+          description: |-
+            Dados para atualização não enviados
+            Email inválido
+            Departamento inválido
         '404':
           description: Funcionário ou Departamento não encontrado
     delete:

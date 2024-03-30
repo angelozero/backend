@@ -86,11 +86,11 @@ def employee_detail(id):
 def create_employee():
     data = request.json
 
-    if "name" not in data or "department_id" not in data:
-        return jsonify({"error": "Não foi enviado a informação de departmento"}), 400
-      
-    if not is_valid_email(data["email"]):
-        return jsonify({"error": "Email inválido"}), 400
+    if "name" not in data or not data["name"]:
+        return jsonify({"error": "Nome não foi enviado ou está vazio"}), 400
+
+    if "email" not in data or not data["email"]:
+        return jsonify({"error": "Email não foi enviado ou está vazio"}), 400
 
     if data["department_id"] is not None and not isinstance(data["department_id"], int) or data["department_id"] == 0:
         return jsonify({"error": "Departamento inválido"}), 400
