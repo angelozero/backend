@@ -10,12 +10,12 @@
 			"name": "Usuario",
 			"item": [
 				{
-					"name": "Usuario - GET ID",
+					"name": "Funcionario - GET ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/usuario/21",
+							"raw": "http://127.0.0.1:5000/funcionario/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -25,20 +25,20 @@
 							],
 							"port": "5000",
 							"path": [
-								"usuario",
-								"21"
+								"funcionario",
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Usuarios - GET ALL",
+					"name": "Funcionario - GET ALL",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/usuarios",
+							"raw": "http://127.0.0.1:5000/funcionarios?pagina=1&total=5&departamento=desenvolvimento&nome=alice&email=alice",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -48,20 +48,42 @@
 							],
 							"port": "5000",
 							"path": [
-								"usuarios"
+								"funcionarios"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1"
+								},
+								{
+									"key": "total",
+									"value": "5"
+								},
+								{
+									"key": "departamento",
+									"value": "desenvolvimento"
+								},
+								{
+									"key": "nome",
+									"value": "alice"
+								},
+								{
+									"key": "email",
+									"value": "alice"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Usuario",
+					"name": "Funcionario",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Angelo\",\n    \"second_name\": \"Zero\",\n    \"email\": \"angelo_zero@email.com\",\n    \"departament_id\": 1\n}",
+							"raw": "{\n    \"name\": \"Angelo\",\n    \"second_name\": \"Zero\",\n    \"email\": \"angelo_zero@email.com\",\n    \"department_id\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -69,7 +91,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/usuario",
+							"raw": "http://127.0.0.1:5000/funcionario",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -79,45 +101,14 @@
 							],
 							"port": "5000",
 							"path": [
-								"usuario"
+								"funcionario"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Usuario - Departamento Não Encontrado",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Angelo\",\n    \"second_name\": \"Zero\",\n    \"email\": \"angelo_zero@email.com\",\n    \"departament_id\": 99\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:5000/usuario",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Usuario",
+					"name": "Funcionario",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -131,7 +122,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/usuario/21",
+							"raw": "http://127.0.0.1:5000/funcionario/21",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -141,7 +132,7 @@
 							],
 							"port": "5000",
 							"path": [
-								"usuario",
+								"funcionario",
 								"21"
 							]
 						}
@@ -149,7 +140,7 @@
 					"response": []
 				},
 				{
-					"name": "Usuario",
+					"name": "Funcionario",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -166,29 +157,6 @@
 							"path": [
 								"usuario",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Usuario - Não Encontrado",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/usuario/21",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"usuario",
-								"21"
 							]
 						}
 					},
