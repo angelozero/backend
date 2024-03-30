@@ -48,12 +48,16 @@ department_schema = DepartmentSchema(many=True)
 @app.route("/funcionarios", methods=["GET"])
 def list_employees():
     department_name = request.args.get("departamento", None, type=str)
+    name = request.args.get("nome", None, type=str)
+    email = request.args.get("email", None, type=str)
     department_name = department_name.upper() if department_name else None
 
     paginated_employees = Employee.get_paginated_employees(
         request.args.get("pagina", 1, type=int),
         request.args.get("total", 5, type=int),
         department_name,
+        name,
+        email
     )
 
     if paginated_employees is None:

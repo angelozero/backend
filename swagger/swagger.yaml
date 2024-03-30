@@ -36,11 +36,21 @@ paths:
           required: false
           type: integer
           default: 5
+        - name: nome
+          in: query
+          description: Nome do funcionário
+          required: false
+          type: string
+        - name: email
+          in: query
+          description: Email do funcionário
+          required: false
+          type: string  
         - name: departamento
           in: query
           description: Nome do departamento
           required: false
-          type: string
+          type: string     
       responses:
         '200':
           description: Uma lista paginada de funcionários
@@ -199,6 +209,9 @@ definitions:
       name:
         type: string
         description: Nome do funcionário
+      email:
+        type: string
+        description: Email do funcionário  
       department:
         type: string
         description: Nome do departamento

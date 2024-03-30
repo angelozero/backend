@@ -76,7 +76,7 @@ class Employee(db.Model):
         db.session.commit()
 
     @staticmethod
-    def get_paginated_employees(page, total_page, department):
+    def get_paginated_employees(page, total_page, department, name, email):
         formatted_results = []
 
         if department:
@@ -85,7 +85,14 @@ class Employee(db.Model):
             )
         else:
             employees_query = Employee.query
+            
+            
+        if name:
+            employees_query = employees_query.filter(Employee.name.ilike(f"%{name}%"))
 
+        if email:
+            employees_query = employees_query.filter(Employee.email.ilike(f"%{email}%"))    
+        
        
         total_records = employees_query.count()
         total_pages = math.ceil(total_records / total_page)
@@ -101,6 +108,7 @@ class Employee(db.Model):
                 formatted_employee = {
                     "id": employee.id,
                     "name": employee.name,
+                    "email": employee.email,
                     "department": {
                         "id": department.id,
                         "name": department.name,
