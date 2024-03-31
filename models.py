@@ -95,6 +95,8 @@ class Employee(db.Model):
         if email:
             employees_query = employees_query.filter(Employee.email.ilike(f"%{email}%"))
 
+        employees_query = employees_query.order_by(Employee.id)
+
         total_records = employees_query.count()
         total_pages = math.ceil(total_records / total_page)
 
