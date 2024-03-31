@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 from datetime import datetime
 
 import string
@@ -30,7 +31,9 @@ class Employee(db.Model):
     second_name = db.Column(db.String(100))
     email = db.Column(db.String(100))
     department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
-    department = db.relationship("Department", backref=db.backref("employees", lazy=True))
+    department = db.relationship(
+        "Department", backref=db.backref("employees", lazy=True)
+    )
     date_time_creation = db.Column(db.DateTime)
     date_time_updated = db.Column(db.DateTime)
 
@@ -85,26 +88,26 @@ class Employee(db.Model):
             )
         else:
             employees_query = Employee.query
-            
-            
+
         if name:
             employees_query = employees_query.filter(Employee.name.ilike(f"%{name}%"))
 
         if email:
-            employees_query = employees_query.filter(Employee.email.ilike(f"%{email}%"))    
-        
-       
+            employees_query = employees_query.filter(Employee.email.ilike(f"%{email}%"))
+
         total_records = employees_query.count()
         total_pages = math.ceil(total_records / total_page)
 
         if page < 1 or page > total_pages:
-            return None 
+            return None
 
         if total_records > 0:
             employees = employees_query.paginate(page=page, per_page=total_page)
 
             for employee in employees.items:
-                department = Department.query.filter_by(id=employee.department_id).first()
+                department = Department.query.filter_by(
+                    id=employee.department_id
+                ).first()
                 formatted_employee = {
                     "id": employee.id,
                     "name": employee.name,
@@ -129,4 +132,31 @@ class Employee(db.Model):
             "total_pages": total_pages,
             "total_records": total_records,
             "results": formatted_results,
+        }
+
+    @staticmethod
+    def get_employee_by_email(email):
+        employee = Employee.query.filter(Employee.email == email).first()
+        
+        if employee is None:
+            return None
+        department = Department.query.filter_by(id=employee.department_id).first()
+        
+        return {
+            "id": employee.id,
+            "name": employee.name,
+            "second_name": employee.second_name,
+            "email": employee.email,
+            "department": {
+                "id": department.id,
+                "name": department.name,
+            },
+            "date_time_creation": employee.date_time_creation.strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            "date_time_updated": (
+                employee.date_time_updated.strftime("%Y-%m-%d %H:%M:%S")
+                if employee.date_time_updated
+                else ""
+            ),
         }

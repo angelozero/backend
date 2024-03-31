@@ -15,7 +15,7 @@ SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-app.config['CORS_HEADERS'] = 'Content-Type'
+app.config["CORS_HEADERS"] = "Content-Type"
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 db.init_app(app)
@@ -26,7 +26,7 @@ with app.app_context():
     Employee.insert_initial_values()
 
 ma = Marshmallow(app)
-swagger = Swagger(app, template_file='swagger/swagger.yaml')
+swagger = Swagger(app, template_file="swagger/swagger.yaml")
 
 
 class EmployeeSchema(ma.Schema):
@@ -57,7 +57,7 @@ def list_employees():
         request.args.get("total", 5, type=int),
         department_name,
         name,
-        email
+        email,
     )
 
     if paginated_employees is None:
@@ -92,7 +92,14 @@ def create_employee():
     if "email" not in data or not data["email"]:
         return jsonify({"error": "Email não foi enviado ou está vazio"}), 400
 
-    if data["department_id"] is not None and not isinstance(data["department_id"], int) or data["department_id"] == 0:
+    if Employee.get_employee_by_email(data["email"]) is not None:
+        return jsonify({"error": "Email já cadastrado"}), 400
+
+    if (
+        data["department_id"] is not None
+        and not isinstance(data["department_id"], int)
+        or data["department_id"] == 0
+    ):
         return jsonify({"error": "Departamento inválido"}), 400
 
     if Department.query.filter_by(id=data["department_id"]).first() is None:
@@ -123,11 +130,26 @@ def update_employee(id):
     name = request.json.get("name")
     email = request.json.get("email")
     department_id = request.json.get("department_id")
-    
+
+    employee_by_email = Employee.get_employee_by_email(email)
+
+    employee_by_email = Employee.get_employee_by_email(email)
+
+    if (
+        employee_by_email
+        and employee_by_email.get("id") is not None
+        and employee.id != employee_by_email["id"]
+    ):
+        return jsonify({"error": "Email já cadastrado"}), 400
+
     if email is not None and not is_valid_email(email):
         return jsonify({"error": "Email inválido"}), 400
 
-    if department_id is not None and not isinstance(department_id, int) or department_id == 0:
+    if (
+        department_id is not None
+        and not isinstance(department_id, int)
+        or department_id == 0
+    ):
         return jsonify({"error": "Departamento inválido"}), 400
 
     if department_id:
@@ -188,7 +210,9 @@ def create_department():
     if "name" not in data:
         return (
             jsonify(
-                {"error": "O campo 'name' para o cadastro de Departamento é obrigatório"}
+                {
+                    "error": "O campo 'name' para o cadastro de Departamento é obrigatório"
+                }
             ),
             400,
         )
@@ -228,9 +252,11 @@ def employee_detail_response(employee):
         ),
     }
 
+
 def is_valid_email(email):
-    regex = r'^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    regex = r"^[\w\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
     return re.match(regex, email) is not None
-    
+
+
 if __name__ == "__main__":
     app.run(debug=True)
