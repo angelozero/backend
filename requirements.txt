@@ -1,4 +1,5 @@
 Flask
+Flask-Cors
 flask_marshmallow
 SQLAlchemy
 Flask-SQLAlchemy

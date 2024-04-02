@@ -1,12 +1,20 @@
-# Detalhamento técnico sobre API e Banco
-## Configuração, criação e carga inicial de dados
-- Configuração:
+# Detalhamento técnico sobre API e Banco 
+
+- ## Criando o banco:
+    - O banco é criado através do site [ElephantSQL](https://www.elephantsql.com/)
+    - *Obs.: O site sera encerrado em 2025, fique atento!*
+        - `ElephantSQL is reaching its end of life by January 27, 2025. Consider using another provider.`
+        
+    - Após criar a instanciância do banco, copie a URL gerada.
+        - ![elephantsql](./images/elephantsql.png)
+
+- ## Configuração:
     - Toda configuração para acesso ao banco de dados se encontra no arquivo .env ( criado no passo anteriormente e com a palavra `postgres` alterada para `postgresql` )
         ```shell
         // arquivo .env
-        SQLALCHEMY_DATABASE_URI=postgresql://zdrxdzqw:ME10bkAcv78-0fQsibLtcyg5bEfxm5nl@raja.db.elephantsql.com/zdrxdzqw
+        SQLALCHEMY_DATABASE_URI=postgresql://ohwoybzy:nHQcVRDbZk7-DowwTfNqs0ncPEvflpCZ@drona.db.elephantsql.com/ohwoybzy
         ```
-- Criação:
+- ## Criação e correlacionamento das tabelas:
     - A criação das tabelas ocorre no momento da execução da api
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
         - Exclusão de todas as tabelas
@@ -35,7 +43,7 @@
             department = db.relationship("Department", backref=db.backref("employees", lazy=True))
         ```
 
-- Carga Inicial de Dados
+- ## Carga inicial de dados
     - Carga inicial para Departamentos
         ```python
         // arquivo models.py

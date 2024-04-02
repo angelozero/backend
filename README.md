@@ -52,7 +52,7 @@ python3 -m venv .venv
     ```
 - Url para acesso a api
 
-    - http://127.0.0.1:5000/
+    - http://localhost:8080/
 
 ## Configuração, criação e carga inicial de dados
 - Configuração:
@@ -78,16 +78,22 @@ python3 -m venv .venv
 
         # ... some code here
         ```
-- Detalhamento técnico
-    - Acesse em [Detalhamento técnico sobre API e Banco](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
+- Para mais informações e detalhamentos técnicos
+    - Acesse o arquivo [README-SQL-INFO](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
 
 ## Swagger
-- Acessem em http://127.0.0.1:5000/apidocs/
+- Acessem em http://localhost:8080/apidocs/
     ![swagger](./images/swagger.png)
 
 ## Postman
 - Importar para dentro do postman o arquivo `postman_collection.json`
 ![postman](./images/postman.png)
+
+## Docker
+- Baixar a imagem [angelozero/backend-py](https://hub.docker.com/repository/docker/angelozero/backend-py/general)
+- Executar o comando 
+    - `docker run -p 8080:8080 -e SQLALCHEMY_DATABASE_URI=ELEPHANT_SQL_URL angelozero/backend-py`
+- Acesse o arquivo [README-DOCKER](https://github.com/angelozero/backend/blob/main/README-DOCKER.md) para mais informações de como baixar e executar a api via docker.
 
 ## Documentação das dependências utilizadas
 
