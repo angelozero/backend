@@ -66,7 +66,7 @@ python3 -m venv .venv
 ## Configuração, criação e carga inicial de dados
 
 - ### Usando via Docker
-    - O PostgreSQL está configurado em [docker-compose-yml](https://github.com/angelozero/backend/blob/main/docker-compose.yml)
+    - O PostgreSQL está configurado em [docker-compose-yml](https://github.com/angelozero/backend/blob/data-base-migration/docker-compose.yml)
     - Para criar o banco execute o seguinte comando: `docker compose up -d employee_db`
 
 - ### Usando Localmente
