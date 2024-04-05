@@ -1,18 +1,27 @@
 # Documentação da API
 
-## Configuração do Ambiente
+## Executando a aplicação via Docker Compose
+- Executar o comando 
+    ```bash
+     docker compose up -d
+    ```
+- Acessar em 
+    ```bash
+    http://localhost:8080/apidocs/
+    ```
+
+## Configurando a aplicação localmente
 
 - Crie um arquivo `.env` na pasta raiz do projeto.
-- Adicione a chave `SQLALCHEMY_DATABASE_URI` no arquivo `.env`.
-- Acesse o site [ElephantSQL](https://www.elephantsql.com/) e faça login.
-    - *Obs.: O ElephantSQL chegará ao fim de sua vida útil em 27 de janeiro de 2025. Considere usar outro provedor.*
-- Crie uma nova instância com o nome "company".
-- Acesse a instância criada e recupere o valor dentro de "URL".
-- Exemplo de URL: `postgres://ewdmssig:5-GGe88HTw2i6DEngLVvcVY8dzpPcxVu@castor.db.elephantsql.com/ewdmssig`.
-- No arquivo `.env`, substitua o valor da URL de `postgres` para `postgresql`.
-  - Exemplo: `SQLALCHEMY_DATABASE_URI=postgresql://ewdmssig:5-GGe88HTw2i6DEngLVvcVY8dzpPcxVu@castor.db.elephantsql.com/ewdmssig`.
+- Adicione a seguinte chave
+    - `DB_URL=postgresql://postgres:postgres@localhost:5432/postgres`
 
 ## Inicialização do Ambiente
+
+- Subir um banco local via PostgreSQL chamado `postgres` ou execute o comando via Docker Compose
+```shell
+docker compose up -d employee_db
+```
 
 - Para inicializar o ambiente virtual, execute o comando:
 ```shell
@@ -55,10 +64,16 @@ python3 -m venv .venv
     - http://localhost:8080/
 
 ## Configuração, criação e carga inicial de dados
-- Configuração:
-    - Toda configuração para acesso ao banco de dados se encontra no arquivo `.env`
 
-- Criação e Carga Inicial:
+- ### Usando via Docker
+    - O PostgreSQL está configurado em [docker-compose-yml](https://github.com/angelozero/backend/blob/main/docker-compose.yml)
+    - Para criar o banco execute o seguinte comando: `docker compose up -d employee_db`
+
+- ### Usando Localmente
+    - Para testes usando a aplicação e o banco local, criar o arquivo na raiz do projeto: `.env`
+        - Adicionar a seguinte chave: `DB_URL=postgresql://postgres:postgres@localhost:5432/postgres`
+
+- Criação das tabelas e Carga Inicial:
     - A criação das tabelas e suas correlações ocorre automaticamente no momento da execução da api
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
         - Exclusão automática de todas as tabelas
