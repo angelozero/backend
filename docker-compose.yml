@@ -1,0 +1,29 @@
+version: "1.0"
+
+services:
+  employee_app:
+    platform: linux/x86_64
+    container_name: employee_app
+    image: angelozero/py-backend
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=postgresql://postgres:postgres@employee_db:5432/postgres
+    depends_on:
+      - employee_db
+  employee_db:
+    platform: linux/x86_64
+    container_name: employee_db
+    image: postgres:14.1-alpine3.15
+    ports:
+     - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - employee_db_data:/var/lib/postgresql/data
+
+volumes:
+  employee_db_data: {}

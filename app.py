@@ -10,7 +10,8 @@ import os
 import re
 
 load_dotenv()
-SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+# SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+SQLALCHEMY_DATABASE_URI = os.getenv("DB_URL")
 
 app = Flask(__name__)
 

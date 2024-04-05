@@ -11,10 +11,9 @@
 # docker build --platform linux/amd64 -t angelozero/py-backend .
 # https://hub.docker.com/repository/docker/angelozero/backend-py/general
 # docker run -p 8080:8080 -e SQLALCHEMY_DATABASE_URI=ELEPHANT_SQL_URL angelozero/backend-py
+# docker run --platform linux/amd64 docker.io/angelozero/backend-py:latest
 
-
-
-FROM python:latest
+FROM python:3.11
 
 WORKDIR /app_py
 
