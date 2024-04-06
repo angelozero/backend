@@ -129,6 +129,7 @@ def update_employee(id):
         return jsonify({"error": "Funcionário não encontrado"}), 404
 
     name = request.json.get("name")
+    second_name = request.json.get("second_name")
     email = request.json.get("email")
     department_id = request.json.get("department_id")
 
@@ -157,9 +158,11 @@ def update_employee(id):
         if Department.query.filter_by(id=department_id).first() is None:
             return jsonify({"error": "Departamento não encontrado"}), 404
 
-    if name or email or department_id:
+    if name or email or second_name or department_id:
         if name:
             employee.name = name
+        if second_name:
+            employee.second_name = second_name
         if email:
             employee.email = email
         if department_id:
@@ -207,7 +210,8 @@ def department_detail(id):
 @app.route("/departamento", methods=["POST"])
 def create_department():
     data = request.json
-
+    print("\n\nDEPARTAMENTO " + str(data))
+    
     if "name" not in data:
         return (
             jsonify(
@@ -218,6 +222,7 @@ def create_department():
             400,
         )
 
+    print("\n\nDEPARTAMENTO " + str(data["name"]))
     existing_department = Department.query.filter_by(name=data["name"].upper()).first()
     if existing_department:
         return jsonify({"error": "Departamento já existe"}), 409

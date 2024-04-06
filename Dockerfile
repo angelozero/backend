@@ -23,8 +23,8 @@ RUN pip install --no-cache-dir virtualenv
 
 RUN python -m venv venv
 
-RUN /bin/bash -c "source venv/bin/activate && pip install --no-cache-dir -r requirements.txt"
+RUN /bin/bash -c "source .venv/bin/activate && pip install --no-cache-dir -r requirements.txt"
 
 EXPOSE 8080
 
-CMD ["/bin/bash", "-c", "source venv/bin/activate && python app.py"]
+CMD ["/bin/bash", "-c", ". .venv/bin/activate && exec python app.py"]

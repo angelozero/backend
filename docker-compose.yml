@@ -12,6 +12,7 @@ services:
       - DB_URL=postgresql://postgres:postgres@employee_db:5432/postgres
     depends_on:
       - employee_db
+    
   employee_db:
     platform: linux/x86_64
     container_name: employee_db
