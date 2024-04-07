@@ -169,6 +169,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Department'
+  /departamento:
     post:
       tags:
         - Departamentos
@@ -252,6 +253,9 @@ definitions:
       name:
         type: string
         description: Novo nome do funcionário
+      second_name:
+        type: string
+        description: Novo sobrenome do funcionário
       email:
         type: string
         description: Novo email do funcionário

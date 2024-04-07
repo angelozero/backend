@@ -1,42 +1,46 @@
 # Detalhamento técnico sobre API e Banco 
 
-- ## Criando o banco:
-    - O banco é criado através do site [ElephantSQL](https://www.elephantsql.com/)
-    - *Obs.: O site sera encerrado em 2025, fique atento!*
-        - `ElephantSQL is reaching its end of life by January 27, 2025. Consider using another provider.`
-        
-    - Após criar a instanciância do banco, copie a URL gerada.
-        - ![elephantsql](./images/elephantsql.png)
+- ## Criação e configuração do banco:
+    - ### Usando via Docker
+        - O PostgreSQL está configurado em [docker-compose-yml](https://github.com/angelozero/backend/blob/main/docker-compose.yml)
+        - Para criar o banco execute o seguinte comando: 
+            ```bash
+            docker compose up -d employee_db
+            ```
+    
+    - ### Usando Localmente
+        - Para testes usando a aplicação e o banco local, criar o arquivo na raiz do projeto `.env`
+            - Adicionar a seguinte chave: 
+            ```bash
+            DB_URL=postgresql://postgres:postgres@localhost:5432/postgres
+            ```
+        - Acessar o site do [Postgres](https://www.postgresql.org/download/) e baixar o banco respectivo ao seu sistema operacional
 
-- ## Configuração:
-    - Toda configuração para acesso ao banco de dados se encontra no arquivo .env ( criado no passo anteriormente e com a palavra `postgres` alterada para `postgresql` )
-        ```shell
-        // arquivo .env
-        SQLALCHEMY_DATABASE_URI=postgresql://ohwoybzy:nHQcVRDbZk7-DowwTfNqs0ncPEvflpCZ@drona.db.elephantsql.com/ohwoybzy
-        ```
+        - Criar um banco com o nome `postgres`
+
 - ## Criação e correlacionamento das tabelas:
     - A criação das tabelas ocorre no momento da execução da api
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
-        - Exclusão de todas as tabelas
-        - Criação de todas as tabelas
-        - Carga inicial com 4 departamentos
-        - Carga inicial com 20 funcionários
-        ```python
-        // arquivo app.py
-        
-        // ... some code here 
-        
-        with app.app_context():
-        db.drop_all()
-        db.create_all()
-        Department.insert_initial_values()
-        Employee.insert_initial_values()
+        - 1 - Exclusão de todas as tabelas
+        - 2 - Criação de todas as tabelas
+        - 3 - Carga inicial com 4 departamentos
+        - 4 - Carga inicial com 20 funcionários
+            ```python
+            # arquivo app.py
+            
+            # ... some code here 
+            
+            with app.app_context():
+            db.drop_all()
+            db.create_all()
+            Department.insert_initial_values()
+            Employee.insert_initial_values()
 
-        // ... some code here
-        ```
+            # ... some code here
+            ```
     - O relacionamento entre Funcionários e Departamento ocorre aqui
         ```python
-        // arquivo models.py
+        # arquivo models.py
         class Employee(db.Model):
             __tablename__ = "employee"
             department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
@@ -46,7 +50,7 @@
 - ## Carga inicial de dados
     - Carga inicial para Departamentos
         ```python
-        // arquivo models.py
+        # arquivo models.py
         @staticmethod
         def insert_initial_values():
             departments = ["DESENVOLVIMENTO", "QUALIDADE", "MARKETING", "ADMINISTRATIVO"]
