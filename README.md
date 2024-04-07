@@ -1,10 +1,9 @@
 # Documentação da API
 
 ## Executando a aplicação via Docker Compose
-- Baixe o projeto [GitHub - angelozero/backend](https://github.com/angelozero/backend)
-- Acesse a pasta 
+- Faça uma cópia do projeto em sua máquina
     ```bash
-    $ cd backend
+    git clone git@github.com:angelozero/backend.git
     ```
 - Executar o comando 
     ```bash
