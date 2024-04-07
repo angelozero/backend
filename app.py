@@ -10,7 +10,6 @@ import os
 import re
 
 load_dotenv()
-# SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
 SQLALCHEMY_DATABASE_URI = os.getenv("DB_URL")
 
 app = Flask(__name__)
@@ -210,7 +209,6 @@ def department_detail(id):
 @app.route("/departamento", methods=["POST"])
 def create_department():
     data = request.json
-    print("\n\nDEPARTAMENTO " + str(data))
     
     if "name" not in data:
         return (
@@ -222,7 +220,6 @@ def create_department():
             400,
         )
 
-    print("\n\nDEPARTAMENTO " + str(data["name"]))
     existing_department = Department.query.filter_by(name=data["name"].upper()).first()
     if existing_department:
         return jsonify({"error": "Departamento já existe"}), 409
