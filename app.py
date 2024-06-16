@@ -2,9 +2,10 @@ from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flasgger import Swagger
-from models import Employee, Department, db
+from models import Employee, Department, Address, db
 from datetime import datetime
 from dotenv import load_dotenv
+import json
 
 import os
 import re
@@ -22,6 +23,7 @@ db.init_app(app)
 with app.app_context():
     db.drop_all()
     db.create_all()
+    Address.insert_initial_values()
     Department.insert_initial_values()
     Employee.insert_initial_values()
 
@@ -43,6 +45,14 @@ class DepartmentSchema(ma.Schema):
 
 
 department_schema = DepartmentSchema(many=True)
+
+
+class AddressSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "zip_code", "street", "city", "neighbourhood", "uf")
+
+
+address_schema = AddressSchema(many=True)
 
 
 @app.route("/funcionarios", methods=["GET"])
@@ -86,38 +96,77 @@ def employee_detail(id):
 def create_employee():
     data = request.json
 
+    error_employee_info = validate_employee_info(data)
+    if error_employee_info:
+        return jsonify(error_employee_info[0]), error_employee_info[1]
+
+    error_address = validate_address(data)
+    if error_address:
+        return jsonify(error_address[0]), error_address[1]
+
+    new_address = Address(
+            zipcode=data["address"]["zipcode"],
+            street=get_address_field(data, "street"),
+            number=get_address_field(data, "number"),
+            neighbourhood=get_address_field(data, "neighbourhood"),
+            city=get_address_field(data, "city"),
+            uf=get_address_field(data, "uf"),
+        )
+
+    db.session.add(new_address)
+    db.session.commit()
+    
+    new_employee = Employee(
+        name=data["name"],
+        second_name=data["second_name"],
+        email=data["email"],
+        department_id=data["department_id"],
+        address_id=new_address.id,
+        date_time_creation=datetime.now(),
+        date_time_updated=None,
+    )
+    
+    db.session.add(new_employee)
+    db.session.commit()
+
+    return employee_detail_response(new_employee), 201
+
+
+def get_address_field(data, field):
+    return data.get("address", {}).get(field, "") if data.get("address") else ""
+
+
+def validate_employee_info(data):
     if "name" not in data or not data["name"]:
-        return jsonify({"error": "Nome não foi enviado ou está vazio"}), 400
+        return {"error": "Nome não foi enviado ou está vazio"}, 400
 
     if "email" not in data or not data["email"]:
-        return jsonify({"error": "Email não foi enviado ou está vazio"}), 400
+        return {"error": "Email não foi enviado ou está vazio"}, 400
 
     if Employee.get_employee_by_email(data["email"]) is not None:
-        return jsonify({"error": "Email já cadastrado"}), 400
+        return {"error": "Email já cadastrado"}, 400
 
     if (
         data["department_id"] is not None
         and not isinstance(data["department_id"], int)
         or data["department_id"] == 0
     ):
-        return jsonify({"error": "Departamento inválido"}), 400
+        return {"error": "Departamento inválido"}, 400
 
     if Department.query.filter_by(id=data["department_id"]).first() is None:
         return jsonify({"error": "Departamento não encontrado"}), 404
 
-    new_employee = Employee(
-        name=data["name"],
-        second_name=data["second_name"],
-        email=data["email"],
-        department_id=data["department_id"],
-        date_time_creation=datetime.now(),
-        date_time_updated=None,
-    )
 
-    db.session.add(new_employee)
-    db.session.commit()
+def validate_address(data):
+    if "address" not in data or not isinstance(data["address"], dict):
+        return {
+            "error": "Dados de 'address' não está presente ou não é um objeto válido"
+        }, 400
 
-    return employee_detail_response(new_employee), 201
+    if "zipcode" not in data["address"] or not data["address"]["zipcode"]:
+        return {"error": "CEP não foi enviado ou está vazio"}, 400
+
+    return None
 
 
 @app.route("/funcionario/<id>", methods=["PUT"])
@@ -209,7 +258,7 @@ def department_detail(id):
 @app.route("/departamento", methods=["POST"])
 def create_department():
     data = request.json
-    
+
     if "name" not in data:
         return (
             jsonify(
@@ -247,6 +296,14 @@ def employee_detail_response(employee):
             "id": employee.department.id,
             "name": employee.department.name,
         },
+        "address": {
+            "zipcode": employee.address.zipcode,
+            "street": employee.address.street,
+            "city": employee.address.city,
+            "neighbourhood": employee.address.neighbourhood,
+            "uf": employee.address.uf,
+            "number": employee.address.number,
+        },
         "date_time_creation": employee.date_time_creation.strftime("%Y-%m-%d %H:%M:%S"),
         "date_time_updated": (
             employee.date_time_updated.strftime("%Y-%m-%d %H:%M:%S")
@@ -262,4 +319,4 @@ def is_valid_email(email):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)

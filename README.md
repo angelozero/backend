@@ -125,3 +125,4 @@
 | Psycopg2 Binary | https://www.psycopg.org/docs/install.html#quick-install |
 | Flasgger | https://github.com/flasgger/flasgger/blob/master/README.md |
 | Marshmallow Sqlalchemy | https://marshmallow-sqlalchemy.readthedocs.io/en/latest/ |
+| Faker | https://pypi.org/project/Faker/ |

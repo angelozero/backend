@@ -17,6 +17,8 @@ tags:
     description: Operações relacionadas a funcionários
   - name: Departamentos
     description: Operações relacionadas a departamentos
+  - name: Endereços
+    description: Informação de endereços dos funcionários
 paths:
   /funcionarios:
     get:
@@ -93,6 +95,8 @@ paths:
             - Email não foi enviado ou está vazio
             - Email já cadastrado
             - Departamento inválido
+            - CEP não foi enviado ou está vazio
+            - Dados de 'address' não está presente ou não é um objeto válido
         '404':
           description: Departamento não encontrado
   /funcionario/{id}:
@@ -220,10 +224,13 @@ definitions:
         description: Nome do funcionário
       email:
         type: string
-        description: Email do funcionário  
+        description: Email do funcionário
       department:
-        type: string
-        description: Nome do departamento
+        $ref: '#/definitions/Department'
+        description: Departamento do funcionário
+      address:
+        $ref: '#/definitions/Address'
+        description: Endereço do funcionário
       date_time_creation:
         type: string
         format: date-time
@@ -232,6 +239,40 @@ definitions:
         type: string
         format: date-time
         description: Data e hora da última atualização do funcionário
+
+  Address:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID do endereço
+      zipcode:
+        type: string
+        description: CEP do funcionário
+      street:
+        type: string
+        description: Rua do funcionário
+      number:
+        type: string
+        description: Número do endereço do funcionário
+      city:
+        type: string
+        description: Cidade do funcionário
+      neighborhood:
+        type: string
+        description: Bairro do funcionário
+      uf:
+        type: string
+        description: UF do funcionário
+      date_time_creation:
+        type: string
+        format: date-time
+        description: Data e hora de criação do endereço
+      date_time_updated:
+        type: string
+        format: date-time
+        description: Data e hora da última atualização do endereço
+
   NewEmployee:
     type: object
     properties:
@@ -247,6 +288,25 @@ definitions:
       department_id:
         type: integer
         description: ID do departamento
+      zipcode:
+        type: string
+        description: CEP do funcionário
+      street:
+        type: string
+        description: Rua do funcionário
+      number:
+        type: string
+        description: Número do endereço do funcionário
+      neighborhood:
+        type: string
+        description: Bairro do funcionário
+      city:
+        type: string
+        description: Cidade do funcionário
+      uf:
+        type: string
+        description: UF do funcionário
+
   UpdateEmployee:
     type: object
     properties:
@@ -262,6 +322,10 @@ definitions:
       department_id:
         type: integer
         description: Novo ID do departamento do funcionário
+      cep:
+        type: string
+        description: Novo CEP do funcionário
+
   Department:
     type: object
     properties:
@@ -271,6 +335,7 @@ definitions:
       name:
         type: string
         description: Nome do departamento
+
   NewDepartment:
     type: object
     properties:

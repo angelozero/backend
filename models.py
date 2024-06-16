@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from faker import Faker
 
 import string
 import random
@@ -22,6 +23,33 @@ class Department(db.Model):
                 db.session.add(new_department)
         db.session.commit()
 
+class Address(db.Model):
+    __tablename__ = "address"
+    id = db.Column(db.Integer, primary_key=True)
+    zipcode = db.Column(db.String(100))
+    street = db.Column(db.String(100))
+    number = db.Column(db.String(100))
+    neighbourhood = db.Column(db.String(100))
+    city = db.Column(db.String(100))
+    uf = db.Column(db.String(100))
+    @staticmethod
+    def insert_initial_values():
+        faker = Faker('pt_BR')
+        addresses = []
+
+        for _ in range(20):
+            address = Address(
+                zipcode=faker.postcode(),
+                street=faker.street_name(),
+                neighbourhood=faker.bairro(),
+                city=faker.city(),
+                uf=faker.state_abbr(),
+                number=faker.random_int(min=1, max=10000)
+            )
+            addresses.append(address)
+
+        db.session.bulk_save_objects(addresses)
+        db.session.commit()
 
 class Employee(db.Model):
     __tablename__ = "employee"
@@ -32,6 +60,10 @@ class Employee(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
     department = db.relationship(
         "Department", backref=db.backref("employees", lazy=True)
+    )
+    address_id = db.Column(db.Integer, db.ForeignKey("address.id"))
+    address = db.relationship(
+        "Address", backref=db.backref("addresses", lazy=True)
     )
     date_time_creation = db.Column(db.DateTime)
     date_time_updated = db.Column(db.DateTime)
@@ -72,6 +104,7 @@ class Employee(db.Model):
                 + "".join(random.choice(string.digits) for i in range(3))
                 + "@email.com",
                 department_id=random.randint(1, 4),
+                address_id=random.randint(1, 20),
                 date_time_creation=datetime.now(),
             )
             db.session.add(new_employee)
@@ -161,3 +194,4 @@ class Employee(db.Model):
                 else ""
             ),
         }
+
