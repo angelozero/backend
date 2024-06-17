@@ -300,24 +300,9 @@ definitions:
       department_id:
         type: integer
         description: ID do departamento
-      zipcode:
-        type: string
-        description: CEP do funcionário
-      street:
-        type: string
-        description: Rua do funcionário
-      number:
-        type: string
-        description: Número da residência do funcionário
-      neighborhood:
-        type: string
-        description: Bairro do funcionário
-      city:
-        type: string
-        description: Cidade do funcionário
-      uf:
-        type: string
-        description: UF do funcionário
+      address:
+        $ref: '#/definitions/Address'
+        description: Endereço do funcionário
 
   UpdateEmployee:
     type: object
