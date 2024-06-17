@@ -158,7 +158,14 @@ class Employee(db.Model):
                         if employee.date_time_updated
                         else ""
                     ),
+                    "address": {
+                        "zipcode": employee.address.zipcode,
+                        "street": employee.address.street,
+                        "number": employee.address.number,
+                        "neighbourhood": employee.address.neighbourhood
+                    }
                 }
+                
                 formatted_results.append(formatted_employee)
 
         return {

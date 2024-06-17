@@ -96,7 +96,6 @@ paths:
             - Email já cadastrado
             - Departamento inválido
             - CEP não foi enviado ou está vazio
-            - Dados de 'address' não está presente ou não é um objeto válido
         '404':
           description: Departamento não encontrado
   /funcionario/{id}:
@@ -129,7 +128,7 @@ paths:
           type: integer
         - name: body
           in: body
-          description: Dados atualizados do funcionário
+          description: Dados para atualizar as informações do funcionário
           required: true
           schema:
             $ref: '#/definitions/UpdateEmployee'
@@ -144,6 +143,7 @@ paths:
             - Email inválido
             - Email já cadastrado
             - Departamento inválido
+            - CEP não foi enviado ou está vazio
         '404':
           description: Funcionário ou Departamento não encontrado
     delete:
@@ -212,7 +212,52 @@ paths:
             $ref: '#/definitions/Department'
         '404':
           description: Departamento não encontrado
+
 definitions:
+  UpdateAddress:
+    type: object
+    properties:
+      zipcode:
+        type: string
+        description: CEP do funcionário
+      street:
+        type: string
+        description: Rua do funcionário
+      number:
+        type: string
+        description: Número da residência do funcionário
+      city:
+        type: string
+        description: Cidade do funcionário
+      neighborhood:
+        type: string
+        description: Bairro do funcionário
+      uf:
+        type: string
+        description: UF do funcionário
+
+  Address:
+    type: object
+    properties:
+      zipcode:
+        type: string
+        description: CEP do funcionário
+      street:
+        type: string
+        description: Rua do funcionário
+      number:
+        type: string
+        description: Número da residência do funcionário
+      city:
+        type: string
+        description: Cidade do funcionário
+      neighborhood:
+        type: string
+        description: Bairro do funcionário
+      uf:
+        type: string
+        description: UF do funcionário
+
   Employee:
     type: object
     properties:
@@ -240,39 +285,6 @@ definitions:
         format: date-time
         description: Data e hora da última atualização do funcionário
 
-  Address:
-    type: object
-    properties:
-      id:
-        type: integer
-        description: ID do endereço
-      zipcode:
-        type: string
-        description: CEP do funcionário
-      street:
-        type: string
-        description: Rua do funcionário
-      number:
-        type: string
-        description: Número do endereço do funcionário
-      city:
-        type: string
-        description: Cidade do funcionário
-      neighborhood:
-        type: string
-        description: Bairro do funcionário
-      uf:
-        type: string
-        description: UF do funcionário
-      date_time_creation:
-        type: string
-        format: date-time
-        description: Data e hora de criação do endereço
-      date_time_updated:
-        type: string
-        format: date-time
-        description: Data e hora da última atualização do endereço
-
   NewEmployee:
     type: object
     properties:
@@ -296,7 +308,7 @@ definitions:
         description: Rua do funcionário
       number:
         type: string
-        description: Número do endereço do funcionário
+        description: Número da residência do funcionário
       neighborhood:
         type: string
         description: Bairro do funcionário
@@ -322,9 +334,9 @@ definitions:
       department_id:
         type: integer
         description: Novo ID do departamento do funcionário
-      cep:
-        type: string
-        description: Novo CEP do funcionário
+      address:
+        $ref: '#/definitions/UpdateAddress'
+        description: Endereço do funcionário
 
   Department:
     type: object

@@ -105,17 +105,17 @@ def create_employee():
         return jsonify(error_address[0]), error_address[1]
 
     new_address = Address(
-            zipcode=data["address"]["zipcode"],
-            street=get_address_field(data, "street"),
-            number=get_address_field(data, "number"),
-            neighbourhood=get_address_field(data, "neighbourhood"),
-            city=get_address_field(data, "city"),
-            uf=get_address_field(data, "uf"),
-        )
+        zipcode=data["address"]["zipcode"],
+        street=get_address_field(data, "street"),
+        number=get_address_field(data, "number"),
+        neighbourhood=get_address_field(data, "neighbourhood"),
+        city=get_address_field(data, "city"),
+        uf=get_address_field(data, "uf"),
+    )
 
     db.session.add(new_address)
     db.session.commit()
-    
+
     new_employee = Employee(
         name=data["name"],
         second_name=data["second_name"],
@@ -125,7 +125,7 @@ def create_employee():
         date_time_creation=datetime.now(),
         date_time_updated=None,
     )
-    
+
     db.session.add(new_employee)
     db.session.commit()
 
@@ -159,9 +159,7 @@ def validate_employee_info(data):
 
 def validate_address(data):
     if "address" not in data or not isinstance(data["address"], dict):
-        return {
-            "error": "Dados de 'address' não está presente ou não é um objeto válido"
-        }, 400
+        return {"error": "CEP não foi enviado ou está vazio"}, 400
 
     if "zipcode" not in data["address"] or not data["address"]["zipcode"]:
         return {"error": "CEP não foi enviado ou está vazio"}, 400
@@ -176,12 +174,19 @@ def update_employee(id):
     if employee is None:
         return jsonify({"error": "Funcionário não encontrado"}), 404
 
+    # emplyee data
     name = request.json.get("name")
     second_name = request.json.get("second_name")
     email = request.json.get("email")
     department_id = request.json.get("department_id")
 
-    employee_by_email = Employee.get_employee_by_email(email)
+    # address data
+    city = request.json.get("address").get("city")
+    neighbourhood = request.json.get("address").get("neighbourhood")
+    number = request.json.get("address").get("number")
+    street = request.json.get("address").get("street")
+    uf = request.json.get("address").get("uf")
+    zipcode = request.json.get("address").get("zipcode")
 
     employee_by_email = Employee.get_employee_by_email(email)
 
@@ -206,6 +211,35 @@ def update_employee(id):
         if Department.query.filter_by(id=department_id).first() is None:
             return jsonify({"error": "Departamento não encontrado"}), 404
 
+    if city or neighbourhood or number or street or uf or zipcode:
+        address = Address.query.filter_by(id=employee.address_id).first()
+
+        if address is None:
+            return (
+                jsonify({"error": "Endereço vinculado ao funcionário não encontrado"}),
+                404,
+            )
+
+        if city:
+            address.city = city
+
+        if neighbourhood:
+            address.neighbourhood = neighbourhood
+
+        if number:
+            address.number = number
+
+        if street:
+            address.street = street
+
+        if uf:
+            address.uf = uf
+
+        if zipcode:
+            address.zip_code = zipcode
+
+        db.session.commit()
+
     if name or email or second_name or department_id:
         if name:
             employee.name = name
@@ -216,6 +250,7 @@ def update_employee(id):
         if department_id:
             employee.department_id = department_id
 
+        employee.address_id = address.id
         employee.date_time_updated = datetime.now()
 
         db.session.commit()
