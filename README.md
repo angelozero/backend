@@ -1,4 +1,5 @@
 # Documentação da API
+- Simples API de cadastro de funcionário em Python, Flask e PostgreSQL
 
 ## Executando a aplicação via Docker Compose
 - Faça uma cópia do projeto em sua máquina
@@ -131,7 +132,7 @@
 ## Postman
 - Importar para dentro do postman o arquivo `postman_collection.json`
 ![postman](./images/postman.png)
-![alt text](image.png)
+
 ## Documentação das dependências utilizadas
 
 | Plugin | Documentação |
