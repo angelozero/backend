@@ -1,4 +1,8 @@
-version: "1.0"
+#    M1 MacBook Pro
+#    Sonoma Version 14.3 (23D56)
+#    Docker 4.28.0 (139021)
+#    - export DOCKER_DEFAULT_PLATFORM=linux/amd64
+version: "3.8"
 
 services:
   employee_app:
@@ -14,11 +18,11 @@ services:
       - employee_db
     
   employee_db:
-    platform: linux/x86_64
+    platform: linux/amd64
     container_name: employee_db
     image: postgres:14.1-alpine3.15
     ports:
-     - "5432:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
