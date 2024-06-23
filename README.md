@@ -106,6 +106,22 @@
             ```
 - Para mais informações e detalhamentos técnicos acesse o arquivo [README-SQL-INFO](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
 
+
+## API ViaCEP
+- Para a criação e/ou atualização de um funcionário válido é necessário enviar apenas um cep válido.
+    - As seguintes informações serão preenchidas automáticamente de acordo com o retorno da [API ViaCEP](viacep.com.br/ws/13063000/json/)
+        - UF
+        - Cidade 
+        - Estado 
+
+    - As seguintes informações não são de envio obrigatório
+        - Rua
+        - Numero
+        - Bairro
+        - Complemento
+    - Fluxograma
+        ![alt text](fluxograma-via-cep.png)
+
 ## Swagger
 - Acessem em http://localhost:8080/apidocs/
     ![swagger](./images/swagger.png)
