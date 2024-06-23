@@ -69,6 +69,8 @@
             pip3 install psycopg2-binary
             pip3 install flasgger
             pip3 install marshmallow-sqlalchemy
+            pip3 install faker    
+            pip3 install requests
             ```
 ---
 - ###  Executando da API
@@ -126,3 +128,4 @@
 | Flasgger | https://github.com/flasgger/flasgger/blob/master/README.md |
 | Marshmallow Sqlalchemy | https://marshmallow-sqlalchemy.readthedocs.io/en/latest/ |
 | Faker | https://pypi.org/project/Faker/ |
+| Requests | https://pypi.org/project/requests/ |

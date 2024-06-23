@@ -29,7 +29,8 @@ class Address(db.Model):
     zipcode = db.Column(db.String(100))
     street = db.Column(db.String(100))
     number = db.Column(db.String(100))
-    neighbourhood = db.Column(db.String(100))
+    complement = db.Column(db.String(100))
+    neighborhood = db.Column(db.String(100))
     city = db.Column(db.String(100))
     uf = db.Column(db.String(100))
     @staticmethod
@@ -41,7 +42,8 @@ class Address(db.Model):
             address = Address(
                 zipcode=faker.postcode(),
                 street=faker.street_name(),
-                neighbourhood=faker.bairro(),
+                neighborhood=faker.bairro(),
+                complement = faker.license_plate(),
                 city=faker.city(),
                 uf=faker.state_abbr(),
                 number=faker.random_int(min=1, max=10000)
@@ -162,7 +164,10 @@ class Employee(db.Model):
                         "zipcode": employee.address.zipcode,
                         "street": employee.address.street,
                         "number": employee.address.number,
-                        "neighbourhood": employee.address.neighbourhood
+                        "complement": employee.address.complement,
+                        "neighborhood": employee.address.neighborhood,
+                        "city": employee.address.city,
+                        "uf": employee.address.uf
                     }
                 }
                 

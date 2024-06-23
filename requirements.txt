@@ -7,4 +7,5 @@ python-dotenv
 psycopg2-binary
 flasgger
 marshmallow-sqlalchemy
-faker
+faker    
+requests

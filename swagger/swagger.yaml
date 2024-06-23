@@ -17,10 +17,9 @@ tags:
     description: Operações relacionadas a funcionários
   - name: Departamentos
     description: Operações relacionadas a departamentos
-  - name: Endereços
-    description: Informação de endereços dos funcionários
+
 paths:
-  /funcionarios:
+  /api/funcionarios:
     get:
       tags:
         - Funcionários
@@ -72,7 +71,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Employee'
-  /funcionario:
+  /api/funcionario:
     post:
       tags:
         - Funcionários
@@ -95,10 +94,10 @@ paths:
             - Email não foi enviado ou está vazio
             - Email já cadastrado
             - Departamento inválido
-            - CEP não foi enviado ou está vazio
+            - CEP não foi enviado ou não é valido
         '404':
           description: Departamento não encontrado
-  /funcionario/{id}:
+  /api/funcionario/{id}:
     get:
       tags:
         - Funcionários
@@ -143,9 +142,11 @@ paths:
             - Email inválido
             - Email já cadastrado
             - Departamento inválido
-            - CEP não foi enviado ou está vazio
+            - CEP não foi enviado ou não é valido
         '404':
-          description: Funcionário ou Departamento não encontrado
+          description: |-
+            - Funcionário ou Departamento não encontrado
+            - Endereço vinculado ao funcionário não encontrado
     delete:
       tags:
         - Funcionários
@@ -161,7 +162,7 @@ paths:
           description: Funcionário excluído com sucesso
         '404':
           description: Funcionário não encontrado
-  /departamentos:
+  /api/departamentos:
     get:
       tags:
         - Departamentos
@@ -173,7 +174,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Department'
-  /departamento:
+  /api/departamento:
     post:
       tags:
         - Departamentos
@@ -194,7 +195,7 @@ paths:
           description: Requisição inválida, o campo 'name' é obrigatório
         '409':
           description: Conflito, departamento já existe
-  /departamento/{id}:
+  /api/departamento/{id}:
     get:
       tags:
         - Departamentos
@@ -223,6 +224,28 @@ definitions:
       street:
         type: string
         description: Rua do funcionário
+      complement:
+        type: string
+        description: Complemento do endereço do funcionário
+      number:
+        type: string
+        description: Número da residência do funcionário
+      neighborhood:
+        type: string
+        description: Bairro do funcionário
+
+  Address:
+    type: object
+    properties:
+      zipcode:
+        type: string
+        description: CEP do funcionário
+      street:
+        type: string
+        description: Rua do funcionário
+      complement:
+        type: string
+        description: Complemento do endereço do funcionário
       number:
         type: string
         description: Número da residência do funcionário
@@ -236,7 +259,7 @@ definitions:
         type: string
         description: UF do funcionário
 
-  Address:
+  CreateAddress:
     type: object
     properties:
       zipcode:
@@ -245,18 +268,15 @@ definitions:
       street:
         type: string
         description: Rua do funcionário
+      complement:
+        type: string
+        description: Complemento do endereço do funcionário
       number:
         type: string
         description: Número da residência do funcionário
-      city:
-        type: string
-        description: Cidade do funcionário
       neighborhood:
         type: string
         description: Bairro do funcionário
-      uf:
-        type: string
-        description: UF do funcionário
 
   Employee:
     type: object
@@ -301,7 +321,7 @@ definitions:
         type: integer
         description: ID do departamento
       address:
-        $ref: '#/definitions/Address'
+        $ref: '#/definitions/CreateAddress'
         description: Endereço do funcionário
 
   UpdateEmployee:

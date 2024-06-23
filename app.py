@@ -6,6 +6,7 @@ from models import Employee, Department, Address, db
 from datetime import datetime
 from dotenv import load_dotenv
 import json
+from via_cep_service import ViaCEPService
 
 import os
 import re
@@ -18,6 +19,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["CORS_HEADERS"] = "Content-Type"
 CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 db.init_app(app)
 with app.app_context():
@@ -49,13 +51,14 @@ department_schema = DepartmentSchema(many=True)
 
 class AddressSchema(ma.Schema):
     class Meta:
-        fields = ("id", "zip_code", "street", "city", "neighbourhood", "uf")
+        fields = ("id", "zip_code", "street", "city", "neighborhood", "uf")
 
 
 address_schema = AddressSchema(many=True)
+via_cep_service = ViaCEPService()
 
 
-@app.route("/funcionarios", methods=["GET"])
+@app.route("/api/funcionarios", methods=["GET"])
 def list_employees():
     department_name = request.args.get("departamento", None, type=str)
     name = request.args.get("nome", None, type=str)
@@ -86,13 +89,13 @@ def list_employees():
     return jsonify(paginated_employees)
 
 
-@app.route("/funcionario/<id>", methods=["GET"])
+@app.route("/api/funcionario/<id>", methods=["GET"])
 def employee_detail(id):
     employee = Employee.query.get(id)
     return employee_detail_response(employee)
 
 
-@app.route("/funcionario", methods=["POST"])
+@app.route("/api/funcionario", methods=["POST"])
 def create_employee():
     data = request.json
 
@@ -100,17 +103,19 @@ def create_employee():
     if error_employee_info:
         return jsonify(error_employee_info[0]), error_employee_info[1]
 
-    error_address = validate_address(data)
-    if error_address:
-        return jsonify(error_address[0]), error_address[1]
+    address_validated = validate_address(data)
+    if (isinstance(address_validated, tuple) and "error" in address_validated[0]) or (
+        "erro" in address_validated
+    ):
+        return {"error": "CEP inválido"}, 400
 
     new_address = Address(
-        zipcode=data["address"]["zipcode"],
-        street=get_address_field(data, "street"),
-        number=get_address_field(data, "number"),
-        neighbourhood=get_address_field(data, "neighbourhood"),
-        city=get_address_field(data, "city"),
-        uf=get_address_field(data, "uf"),
+        street=get_address_info(data, "street"),
+        number=get_address_info(data, "number"),
+        zipcode=get_address_info(address_validated, "cep"),
+        neighborhood=get_address_info(data, "neighborhood"),
+        city=get_address_info(address_validated, "localidade"),
+        uf=get_address_info(address_validated, "uf"),
     )
 
     db.session.add(new_address)
@@ -132,16 +137,24 @@ def create_employee():
     return employee_detail_response(new_employee), 201
 
 
-def get_address_field(data, field):
-    return data.get("address", {}).get(field, "") if data.get("address") else ""
+def get_address_info(data, field):
+    try:
+        return data.get(field)
+
+    except Exception as e:
+        try:
+            return data[0].get(field)
+
+        except Exception as e:
+            return ""
 
 
 def validate_employee_info(data):
     if "name" not in data or not data["name"]:
         return {"error": "Nome não foi enviado ou está vazio"}, 400
 
-    if "email" not in data or not data["email"]:
-        return {"error": "Email não foi enviado ou está vazio"}, 400
+    if "email" not in data or not data["email"] or not is_valid_email(data["email"]):
+        return {"error": "Email não foi enviado ou está inválido"}, 400
 
     if Employee.get_employee_by_email(data["email"]) is not None:
         return {"error": "Email já cadastrado"}, 400
@@ -159,15 +172,28 @@ def validate_employee_info(data):
 
 def validate_address(data):
     if "address" not in data or not isinstance(data["address"], dict):
-        return {"error": "CEP não foi enviado ou está vazio"}, 400
+        return {"error": "CEP não foi enviado ou é invalido"}, 400
 
     if "zipcode" not in data["address"] or not data["address"]["zipcode"]:
-        return {"error": "CEP não foi enviado ou está vazio"}, 400
+        return {"error": "CEP não foi enviado ou é invalido"}, 400
 
-    return None
+    address_info = via_cep_service.get_address_info(data["address"].get("zipcode", ""))
+    if address_info is None or not address_info:
+        return {"error": "CEP inválido"}, 400
+
+    return address_info
 
 
-@app.route("/funcionario/<id>", methods=["PUT"])
+def validate_update_address(zipcode):
+    address_info = via_cep_service.get_address_info(zipcode)
+
+    if address_info is None or not address_info:
+        return {"error": "CEP inválido"}, 400
+
+    return address_info
+
+
+@app.route("/api/funcionario/<id>", methods=["PUT"])
 def update_employee(id):
     employee = Employee.query.get(id)
 
@@ -181,11 +207,10 @@ def update_employee(id):
     department_id = request.json.get("department_id")
 
     # address data
-    city = request.json.get("address").get("city")
-    neighbourhood = request.json.get("address").get("neighbourhood")
+    neighborhood = request.json.get("address").get("neighborhood")
     number = request.json.get("address").get("number")
     street = request.json.get("address").get("street")
-    uf = request.json.get("address").get("uf")
+    complement = request.json.get("address").get("complement")
     zipcode = request.json.get("address").get("zipcode")
 
     employee_by_email = Employee.get_employee_by_email(email)
@@ -211,7 +236,7 @@ def update_employee(id):
         if Department.query.filter_by(id=department_id).first() is None:
             return jsonify({"error": "Departamento não encontrado"}), 404
 
-    if city or neighbourhood or number or street or uf or zipcode:
+    if neighborhood or number or street or complement or zipcode:
         address = Address.query.filter_by(id=employee.address_id).first()
 
         if address is None:
@@ -220,11 +245,8 @@ def update_employee(id):
                 404,
             )
 
-        if city:
-            address.city = city
-
-        if neighbourhood:
-            address.neighbourhood = neighbourhood
+        if neighborhood:
+            address.neighborhood = neighborhood
 
         if number:
             address.number = number
@@ -232,11 +254,20 @@ def update_employee(id):
         if street:
             address.street = street
 
-        if uf:
-            address.uf = uf
+        if complement:
+            address.complement = complement
 
         if zipcode:
-            address.zip_code = zipcode
+            data_address_info = validate_update_address(zipcode)
+
+            if (
+                isinstance(data_address_info, tuple) and "error" in data_address_info[0]
+            ) or ("erro" in data_address_info):
+                return {"error": "CEP inválido"}, 400
+
+            address.zipcode = (get_address_info(data_address_info, "cep"),)
+            address.uf = (get_address_info(data_address_info, "uf"),)
+            address.city = (get_address_info(data_address_info, "localidade"),)
 
         db.session.commit()
 
@@ -259,7 +290,7 @@ def update_employee(id):
         return jsonify({"message": "Nenhum dado para atualização fornecido"}), 400
 
 
-@app.route("/funcionario/<id>", methods=["DELETE"])
+@app.route("/api/funcionario/<id>", methods=["DELETE"])
 def delete_employee(id):
     employee = Employee.query.get(id)
 
@@ -271,14 +302,14 @@ def delete_employee(id):
         return jsonify({"error": "Funcionário não foi encontrado"}), 404
 
 
-@app.route("/departamentos", methods=["GET"])
+@app.route("/api/departamentos", methods=["GET"])
 def list_department():
     all_departments = Department.query.all()
     results = department_schema.dump(all_departments)
     return jsonify(results)
 
 
-@app.route("/departamento/<id>", methods=["GET"])
+@app.route("/api/departamento/<id>", methods=["GET"])
 def department_detail(id):
     department = Department.query.get(id)
     if department:
@@ -290,7 +321,7 @@ def department_detail(id):
         return jsonify({"error": "Departamento não encontrado"}), 404
 
 
-@app.route("/departamento", methods=["POST"])
+@app.route("/api/departamento", methods=["POST"])
 def create_department():
     data = request.json
 
@@ -334,8 +365,9 @@ def employee_detail_response(employee):
         "address": {
             "zipcode": employee.address.zipcode,
             "street": employee.address.street,
+            "complement": employee.address.complement,
             "city": employee.address.city,
-            "neighbourhood": employee.address.neighbourhood,
+            "neighborhood": employee.address.neighborhood,
             "uf": employee.address.uf,
             "number": employee.address.number,
         },
