@@ -1,162 +1,31 @@
 {
 	"info": {
-		"_postman_id": "19496b6d-9e88-4a97-ab0a-973afad86ba1",
+		"_postman_id": "a5a43add-758e-4153-ba02-cbb7f1cd6af6",
 		"name": "MVP_POS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12384551"
 	},
 	"item": [
 		{
-			"name": "Usuario",
+			"name": "Via CEP",
 			"item": [
 				{
-					"name": "Funcionario - GET ID",
+					"name": "Via CEP",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/funcionario/2",
-							"protocol": "http",
+							"raw": "viacep.com.br/ws/13063000/json/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"viacep",
+								"com",
+								"br"
 							],
-							"port": "8080",
 							"path": [
-								"funcionario",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Funcionario - GET ALL",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8080/funcionarios?pagina=1&total=5&departamento=desenvolvimento&nome=alice&email=alice",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"funcionarios"
-							],
-							"query": [
-								{
-									"key": "pagina",
-									"value": "1"
-								},
-								{
-									"key": "total",
-									"value": "5"
-								},
-								{
-									"key": "departamento",
-									"value": "desenvolvimento"
-								},
-								{
-									"key": "nome",
-									"value": "alice"
-								},
-								{
-									"key": "email",
-									"value": "alice"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Funcionario",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Angelo\",\n    \"second_name\": \"Zero\",\n    \"email\": \"angelo_zero@email.com\",\n    \"department_id\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8080/funcionario",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"funcionario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Funcionario",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Angelo - 1\",\n    \"email\": \"angelo_zero@email.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8080/funcionario/21",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"funcionario",
-								"21"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Funcionario",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8080/usuario/1",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"usuario",
-								"1"
+								"ws",
+								"13063000",
+								"json",
+								""
 							]
 						}
 					},
@@ -173,7 +42,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/departamento/1",
+							"raw": "http://127.0.0.1:8080/api/departamento/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -183,6 +52,7 @@
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departamento",
 								"1"
 							]
@@ -196,7 +66,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/departamentos",
+							"raw": "http://127.0.0.1:8080/api/departamentos",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -206,6 +76,7 @@
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departamentos"
 							]
 						}
@@ -227,7 +98,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/departamento",
+							"raw": "http://127.0.0.1:8080/api/departamento",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -237,7 +108,174 @@
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Funcionario - GET ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/funcionario/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"funcionario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Funcionario - GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/funcionarios?pagina=1&total=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"funcionarios"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1"
+								},
+								{
+									"key": "total",
+									"value": "1"
+								},
+								{
+									"key": "departamento",
+									"value": "desenvolvimento",
+									"disabled": true
+								},
+								{
+									"key": "nome",
+									"value": "alice",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "alice",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Funcionario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Angelo\",\n    \"second_name\": \"Zero\",\n    \"email\": \"angelo_zero1@email.com\",\n    \"department_id\": 1,\n    \"address\": {\n        \"zipcode\": \"01205010\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/funcionario",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"funcionario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Funcionario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": {\n    \"complement\": \"string\",\n    \"neighborhood\": \"string\",\n    \"number\": \"string\",\n    \"street\": \"string\",\n    \"zipcode\": \"13063000\"\n  },\n  \"department_id\": 1,\n  \"email\": \"angelo1@gmail.com\",\n  \"name\": \"string\",\n  \"second_name\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/funcionario/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"funcionario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Funcionario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/funcionario/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"funcionario",
+								"1"
 							]
 						}
 					},
