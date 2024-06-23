@@ -23,9 +23,9 @@
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
         - 1 - Exclusão de todas as tabelas
         - 2 - Criação de todas as tabelas
-        - 3 - Carga inicial com 4 departamentos
-        - 4 - Carga inicial com 20 funcionários
-        - 5 - Carga inicial com 20 endereços
+        - 3 - Carga inicial com 20 endereços
+        - 4 - Carga inicial com 4 departamentos
+        - 5 - Carga inicial com 20 funcionários
             ```python
             # arquivo app.py
             
