@@ -25,6 +25,7 @@
         - 2 - Criação de todas as tabelas
         - 3 - Carga inicial com 4 departamentos
         - 4 - Carga inicial com 20 funcionários
+        - 5 - Carga inicial com 20 endereços
             ```python
             # arquivo app.py
             
@@ -33,21 +34,56 @@
             with app.app_context():
             db.drop_all()
             db.create_all()
+            Address.insert_initial_values()
             Department.insert_initial_values()
             Employee.insert_initial_values()
 
             # ... some code here
             ```
-    - O relacionamento entre Funcionários e Departamento ocorre aqui
+    - O relacionamento entre Funcionários, Departamento e Endereço ocorre aqui
         ```python
         # arquivo models.py
         class Employee(db.Model):
             __tablename__ = "employee"
             department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
             department = db.relationship("Department", backref=db.backref("employees", lazy=True))
+            address_id = db.Column(db.Integer, db.ForeignKey("address.id"))
+            address = db.relationship("Address", backref=db.backref("addresses", lazy=True))
         ```
 
 - ## Carga inicial de dados
+    - Carga inicial para Endereços
+        ```python
+        class Address(db.Model):
+        __tablename__ = "address"
+        id = db.Column(db.Integer, primary_key=True)
+        zipcode = db.Column(db.String(100))
+        street = db.Column(db.String(100))
+        number = db.Column(db.String(100))
+        complement = db.Column(db.String(100))
+        neighborhood = db.Column(db.String(100))
+        city = db.Column(db.String(100))
+        uf = db.Column(db.String(100))
+        @staticmethod
+        def insert_initial_values():
+            faker = Faker('pt_BR')
+            addresses = []
+
+            for _ in range(20):
+                address = Address(
+                    zipcode=faker.postcode(),
+                    street=faker.street_name(),
+                    neighborhood=faker.bairro(),
+                    complement = faker.license_plate(),
+                    city=faker.city(),
+                    uf=faker.state_abbr(),
+                    number=faker.random_int(min=1, max=10000)
+                )
+                addresses.append(address)
+
+            db.session.bulk_save_objects(addresses)
+            db.session.commit()
+        ```
     - Carga inicial para Departamentos
         ```python
         # arquivo models.py
@@ -98,7 +134,9 @@
                     + "".join(random.choice(string.digits) for i in range(3))
                     + "@email.com",
                     department_id=random.randint(1, 4),
+                    address_id=random.randint(1, 20),
                     date_time_creation=datetime.now(),
+                    
                 )
                 db.session.add(new_employee)
             db.session.commit()
