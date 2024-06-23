@@ -120,11 +120,13 @@
         - Bairro
         - Complemento
     - Fluxograma
-        ![alt text](fluxograma-via-cep.png)
+        ![alt text](./images/fluxograma-via-cep.png)
+        
 
 ## Swagger
 - Acessem em http://localhost:8080/apidocs/
     ![swagger](./images/swagger.png)
+
 
 ## Postman
 - Importar para dentro do postman o arquivo `postman_collection.json`
