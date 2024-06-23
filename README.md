@@ -108,7 +108,7 @@
 
 
 ## API ViaCEP
-- Para a criação e/ou atualização de um funcionário válido é necessário enviar apenas um cep válido.
+- Para a criação e/ou atualização de um endereço do funcionário é necessário enviar apenas um cep válido.
     - As seguintes informações serão preenchidas automáticamente de acordo com o retorno da [API ViaCEP](viacep.com.br/ws/13063000/json/)
         - UF
         - Cidade 
@@ -131,7 +131,7 @@
 ## Postman
 - Importar para dentro do postman o arquivo `postman_collection.json`
 ![postman](./images/postman.png)
-
+![alt text](image.png)
 ## Documentação das dependências utilizadas
 
 | Plugin | Documentação |
