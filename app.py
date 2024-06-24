@@ -110,10 +110,12 @@ def create_employee():
         return {"error": "CEP inválido"}, 400
 
     new_address = Address(
-        street=get_address_info(data, "street"),
-        number=get_address_info(data, "number"),
+        street=data["address"]["street"],
+        complement=data["address"]["complement"],
+        number=data["address"]["number"],
+        neighborhood=data["address"]["neighborhood"],
+        # info by ViaCEP
         zipcode=get_address_info(address_validated, "cep"),
-        neighborhood=get_address_info(data, "neighborhood"),
         city=get_address_info(address_validated, "localidade"),
         uf=get_address_info(address_validated, "uf"),
     )
@@ -139,11 +141,11 @@ def create_employee():
 
 def get_address_info(data, field):
     try:
-        return data.get(field)
+        return data[0].get(field)
 
     except Exception as e:
         try:
-            return data[0].get(field)
+            return data.get(field)
 
         except Exception as e:
             return ""
@@ -257,17 +259,15 @@ def update_employee(id):
         if complement:
             address.complement = complement
 
-        if zipcode:
-            data_address_info = validate_update_address(zipcode)
+        data_address_info = validate_update_address(zipcode)
+        if (
+            isinstance(data_address_info, tuple) and "error" in data_address_info[0]
+        ) or ("erro" in data_address_info):
+            return {"error": "CEP inválido"}, 400
 
-            if (
-                isinstance(data_address_info, tuple) and "error" in data_address_info[0]
-            ) or ("erro" in data_address_info):
-                return {"error": "CEP inválido"}, 400
-
-            address.zipcode = (get_address_info(data_address_info, "cep"),)
-            address.uf = (get_address_info(data_address_info, "uf"),)
-            address.city = (get_address_info(data_address_info, "localidade"),)
+        address.zipcode = (get_address_info(data_address_info, "cep"),)
+        address.uf = (get_address_info(data_address_info, "uf"),)
+        address.city = (get_address_info(data_address_info, "localidade"),)
 
         db.session.commit()
 
