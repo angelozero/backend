@@ -120,6 +120,11 @@
         - Numero
         - Bairro
         - Complemento
+    - A parametrização da url que invoca a API ViaCEP fica em [config.ini](https://github.com/angelozero/backend/blob/main/config.ini)
+    ```shell
+        [viacep]
+        BASE_URL = https://viacep.com.br/ws
+    ```
     - O serviço pode ser consultado na classe [via_cep_service.py](https://github.com/angelozero/backend/blob/main/via_cep_service.py)
     ```python
         import requests
