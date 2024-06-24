@@ -2,6 +2,7 @@
 #    Sonoma Version 14.3 (23D56)
 #    Docker 4.28.0 (139021)
 #    - export DOCKER_DEFAULT_PLATFORM=linux/amd64
+#    - docker-compose up -d
 version: "3.8"
 
 services:
