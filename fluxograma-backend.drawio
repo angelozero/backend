@@ -1,33 +1,57 @@
-<mxfile host="app.diagrams.net" modified="2024-06-23T20:26:14.950Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="smDzVw_qwID2JYx0zDRy" version="24.2.1" type="device">
+<mxfile host="app.diagrams.net" modified="2024-06-24T01:30:37.863Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="CnVvczcK6sNiNUo3JYxG" version="24.6.2" type="device">
   <diagram name="Página-1" id="mQfp9ySGgmR8H0wvH6xC">
-    <mxGraphModel dx="1434" dy="761" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2514" dy="895" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-1" target="cTaWVgaZwqELDEjk1Sf7-2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-1" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.java" vertex="1" parent="1">
-          <mxGeometry x="20" y="260" width="80" height="135" as="geometry" />
-        </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="cTaWVgaZwqELDEjk1Sf7-1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://viacep.com.br/estatico/images/viacep.png.pagespeed.ce.I80LiA6qpr.png;" vertex="1" parent="1">
-          <mxGeometry x="600" y="291.5" width="287" height="72" as="geometry" />
-        </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-5" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" vertex="1" parent="1">
-          <mxGeometry x="690" y="450" width="87.75" height="117" as="geometry" />
-        </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.505;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-1" target="cTaWVgaZwqELDEjk1Sf7-5">
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="cTaWVgaZwqELDEjk1Sf7-1" target="cTaWVgaZwqELDEjk1Sf7-2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="60" y="509" />
+              <mxPoint x="344" y="573" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="cTaWVgaZwqELDEjk1Sf7-7" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;API &amp;lt;~&amp;gt; ViaCEP&lt;/h1&gt;&lt;p&gt;Regras para informação de cep&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - A consulta REST realizada através viacep.com.br/ws/&amp;lt;CEP&amp;gt;/json/&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - POST ( Criação )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - PUT ( Atualização )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="100" y="110" width="460" height="210" as="geometry" />
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-1" target="O7gEAXPN0o9J1NnL75SC-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-1" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.java" parent="1" vertex="1">
+          <mxGeometry x="-420" y="500" width="82.72" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="O7gEAXPN0o9J1NnL75SC-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="344" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://viacep.com.br/estatico/images/viacep.png.pagespeed.ce.I80LiA6qpr.png;" parent="1" vertex="1">
+          <mxGeometry x="200" y="419" width="287" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-5" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" parent="1" vertex="1">
+          <mxGeometry x="299.63" y="770" width="87.75" height="117" as="geometry" />
+        </mxCell>
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.505;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="cTaWVgaZwqELDEjk1Sf7-1" target="cTaWVgaZwqELDEjk1Sf7-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-377" y="830" />
+              <mxPoint x="310" y="830" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cTaWVgaZwqELDEjk1Sf7-7" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;API &amp;lt;~&amp;gt; ViaCEP&lt;/h1&gt;&lt;p&gt;Regras para informação de cep&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - A consulta REST realizada através viacep.com.br/ws/&amp;lt;CEP&amp;gt;/json/&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - POST ( Criação )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - PUT ( Atualização )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-330" y="590" width="460" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="cTaWVgaZwqELDEjk1Sf7-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="cTaWVgaZwqELDEjk1Sf7-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-1" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.web;" vertex="1" parent="1">
+          <mxGeometry x="-441.36" y="230" width="125.44" height="99.1" as="geometry" />
+        </mxCell>
+        <mxCell id="O7gEAXPN0o9J1NnL75SC-11" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Sistema WEB &amp;lt;~&amp;gt; ViaCEP&lt;/h1&gt;&lt;p&gt;Regras para informação de cep&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - A consulta REST realizada através viacep.com.br/ws/&amp;lt;CEP&amp;gt;/json/&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - Resultado retorno usado para auto preenchimento dos demais campos de endereço&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="290" width="560" height="210" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

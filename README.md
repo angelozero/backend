@@ -157,7 +157,7 @@
                     return {"error": f"API CEP - An error occurred: {err}"}
     ```
     - Fluxograma
-        ![alt text](./images/fluxograma-via-cep.png)
+        ![fluxograma-via-cep](./images/fluxograma-via-cep.png)
         
 
 ## Swagger

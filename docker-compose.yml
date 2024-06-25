@@ -31,5 +31,14 @@ services:
     volumes:
       - employee_db_data:/var/lib/postgresql/data
 
+  employee_web:
+    platform: linux/amd64
+    container_name: employee_web
+    image: angelozero/cadastro-funcionario-app
+    ports:
+      - "80:80"
+    depends_on:
+      - employee_app
+
 volumes:
   employee_db_data: {}
