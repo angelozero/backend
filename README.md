@@ -108,7 +108,17 @@
 - Para mais informações e detalhamentos técnicos acesse o arquivo [README-SQL-INFO](https://github.com/angelozero/backend/blob/main/README-SQL-INFO.md)
 
 
-## API ViaCEP
+## Integração API ViaCEP
+- A api [ViaCEP](viacep.com.br/ws/13063000/json/) é uma api externa que suporta as seguintes funções:
+    - Retorna dados de endereço de acordo com o cep informado
+    - Serviço utilizado para validação do cep e auto preenchimento do campos
+        - UF
+        - Cidade
+        - Estado
+    - Serviço utilizado para validar fluxos:
+        - POST: Criação de um funcionário vinculado a um endereço
+        - PUT: Alteração de um funcionário vinculado a um endereço
+        
 - Para a criação e/ou atualização de um endereço do funcionário é necessário enviar apenas um cep válido.
     - As seguintes informações serão preenchidas automáticamente de acordo com o retorno da [API ViaCEP](viacep.com.br/ws/13063000/json/)
         - UF
