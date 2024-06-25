@@ -100,6 +100,7 @@
             with app.app_context():
             db.drop_all()
             db.create_all()
+            Address.insert_initial_values()
             Department.insert_initial_values()
             Employee.insert_initial_values()
 
@@ -118,7 +119,7 @@
     - Serviço utilizado para validar fluxos:
         - POST: Criação de um funcionário vinculado a um endereço
         - PUT: Alteração de um funcionário vinculado a um endereço
-        
+
 - Para a criação e/ou atualização de um endereço do funcionário é necessário enviar apenas um cep válido.
     - As seguintes informações serão preenchidas automáticamente de acordo com o retorno da [API ViaCEP](viacep.com.br/ws/13063000/json/)
         - UF
