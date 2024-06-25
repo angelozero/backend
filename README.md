@@ -90,8 +90,9 @@
     - Para toda vez que a aplicação é iniciada a seguinte ordem é executada:
         - 1 - Exclusão automática de todas as tabelas
         - 2 - Criação automática de todas as tabelas
-        - 3 - Carga inicial com 4 departamentos gerados em tempo de execução
-        - 4 - Carga inicial com 20 funcionários gerados em tempo de execução, vinculados a um departamento aleatório
+        - 3 - Carga inicial com 20 endereços gerados em tempo de execução
+        - 4 - Carga inicial com 4 departamentos gerados em tempo de execução
+        - 5 - Carga inicial com 20 funcionários gerados em tempo de execução, vinculados a um departamento e endereço aleatório
             ```python
             # arquivo app.py
             
