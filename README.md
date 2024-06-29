@@ -31,6 +31,10 @@
         DB_URL=postgresql://postgres:postgres@localhost:5432/postgres
         ```
 ---
+- ### Executando a aplicação via Docker
+    - Acessar o repositório DockerHub da aplicação e baixar a imagem.
+    - Acesse [Cadastro de Funcionário - py-backend](https://hub.docker.com/repository/docker/angelozero/py-backend/general)
+
 - ### Subindo o banco via Docker
     - Dentro da pasta `backend` executar o seguinte compando
         ```bash
