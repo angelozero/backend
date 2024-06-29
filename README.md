@@ -15,8 +15,22 @@
     http://localhost:8080/apidocs/
     ```
 
-## Executando a aplicação localmente
-- ### Configurações iniciais
+## Configurações iniciais
+
+- ### Docker
+- #### Subindo a aplicação via Docker
+    - A imagem Docker se encontra no [DockerHub](https://hub.docker.com/repository/docker/angelozero/py-backend/general) ou no arquivo [Dockerfile](https://github.com/angelozero/backend/blob/main/Dockerfile) do projeto.
+
+    - Acessar a rota `http://localhost:8080/servico_da_api` direto no navegador ou utilize o [Postman](https://www.postman.com/downloads/) e importe o arquivo [postman_collection.json](https://github.com/angelozero/backend/blob/main/postman_collection.json) disponibilizado no projeto.
+
+- #### Subindo o banco via Docker
+    - Dentro da pasta `backend` executar o seguinte compando
+        ```bash
+        docker compose up -d employee_db
+        ```
+--- 
+- ### Localmente    
+- #### Executando a aplicação localmente
     - Faça uma cópia do projeto em sua máquina
         ```bash
         git clone git@github.com:angelozero/backend.git
@@ -31,22 +45,12 @@
         DB_URL=postgresql://postgres:postgres@localhost:5432/postgres
         ```
 ---
-- ### Executando a aplicação via Docker
-    - Acessar o repositório DockerHub da aplicação e baixar a imagem.
-    - Acesse [Cadastro de Funcionário - py-backend](https://hub.docker.com/repository/docker/angelozero/py-backend/general)
-
-- ### Subindo o banco via Docker
-    - Dentro da pasta `backend` executar o seguinte compando
-        ```bash
-        docker compose up -d employee_db
-        ```
----
-- ### Subindo o banco localmente
+- #### Subindo o banco localmente
     - Acessar o site do [Postgres](https://www.postgresql.org/download/) e baixar o banco respectivo ao seu sistema operacional
 
     - Criar um banco com o nome `postgres`
 ---
-- ### Incializando o ambiente
+- #### Incializando o ambiente
     - Para inicializar o ambiente virtual, execute o comando ( *é necessário ter o [Python](https://www.python.org/downloads/) instalado* ):
         ```bash
         $ python3 -m venv .venv
@@ -56,8 +60,7 @@
         $ . .venv/bin/activate
         ```
 ---
-- ### Instalação das Dependências
-
+- #### Instalação das Dependências
     - Instale as dependências usando os seguintes comandos:
     - Acesse a pasta `backend`
         - Através do arquivo `requirements.txt`
@@ -78,15 +81,14 @@
             pip3 install requests
             ```
 ---
-- ###  Executando da API
-
+- ####  Executando a API via terminal
     - Para executar a API, use o comando:
         ```bash
         flask run
         ```
     - Url para acesso as rotas disponíveis da api: http://localhost:8080/
 
-
+---
 ## Configuração, criação e carga inicial de dados
 
 - Criação das tabelas e carga Inicial:
