@@ -2,11 +2,12 @@
 - Simples API de cadastro de funcionário em Python, Flask e PostgreSQL
 
 ## Executando a aplicação via Docker Compose
+- *Necessário ter o [Docker](https://www.docker.com/) instalado*
 - Faça uma cópia do projeto em sua máquina
     ```bash
     git clone git@github.com:angelozero/backend.git
     ```
-- Executar o comando 
+- Acesse a pasta do projeto e execute o seguinte comando 
     ```bash
     $ docker compose up -d
     ```
