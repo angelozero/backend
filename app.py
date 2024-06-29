@@ -202,92 +202,87 @@ def update_employee(id):
     if employee is None:
         return jsonify({"error": "Funcionário não encontrado"}), 404
 
-    # emplyee data
-    name = request.json.get("name")
-    second_name = request.json.get("second_name")
-    email = request.json.get("email")
-    department_id = request.json.get("department_id")
+    # Coleta de dados do request
+    data = request.json
+    employee_data = data.get("employee", {})
+    address_data = data.get("address", {})
 
-    # address data
-    neighborhood = request.json.get("address").get("neighborhood")
-    number = request.json.get("address").get("number")
-    street = request.json.get("address").get("street")
-    complement = request.json.get("address").get("complement")
-    zipcode = request.json.get("address").get("zipcode")
+    # Verificação se pelo menos um dado foi enviado
+    if not any([employee_data, address_data]):
+        return jsonify({"message": "Nenhum dado para atualização fornecido"}), 400
 
-    employee_by_email = Employee.get_employee_by_email(email)
+    # Atualização dos dados do funcionário
+    if employee_data:
+        name = employee_data.get("name")
+        second_name = employee_data.get("second_name")
+        email = employee_data.get("email")
+        department_id = employee_data.get("department_id")
 
-    if (
-        employee_by_email
-        and employee_by_email.get("id") is not None
-        and employee.id != employee_by_email["id"]
-    ):
-        return jsonify({"error": "Email já cadastrado"}), 400
+        # Validação de email
+        if email:
+            employee_by_email = Employee.get_employee_by_email(email)
+            if (
+                employee_by_email
+                and employee_by_email.get("id") is not None
+                and employee.id != employee_by_email["id"]
+            ):
+                return jsonify({"error": "Email já cadastrado"}), 400
+            if not is_valid_email(email):
+                return jsonify({"error": "Email inválido"}), 400
+            employee.email = email
 
-    if email is not None and not is_valid_email(email):
-        return jsonify({"error": "Email inválido"}), 400
+        # Validação de departamento
+        if department_id:
+            if not isinstance(department_id, int) or department_id == 0:
+                return jsonify({"error": "Departamento inválido"}), 400
+            if Department.query.filter_by(id=department_id).first() is None:
+                return jsonify({"error": "Departamento não encontrado"}), 404
+            employee.department_id = department_id
 
-    if (
-        department_id is not None
-        and not isinstance(department_id, int)
-        or department_id == 0
-    ):
-        return jsonify({"error": "Departamento inválido"}), 400
-
-    if department_id:
-        if Department.query.filter_by(id=department_id).first() is None:
-            return jsonify({"error": "Departamento não encontrado"}), 404
-
-    if neighborhood or number or street or complement or zipcode:
-        address = Address.query.filter_by(id=employee.address_id).first()
-
-        if address is None:
-            return (
-                jsonify({"error": "Endereço vinculado ao funcionário não encontrado"}),
-                404,
-            )
-
-        if neighborhood:
-            address.neighborhood = neighborhood
-
-        if number:
-            address.number = number
-
-        if street:
-            address.street = street
-
-        if complement:
-            address.complement = complement
-
-        data_address_info = validate_update_address(zipcode)
-        if (
-            isinstance(data_address_info, tuple) and "error" in data_address_info[0]
-        ) or ("erro" in data_address_info):
-            return {"error": "CEP inválido"}, 400
-
-        address.zipcode = (get_address_info(data_address_info, "cep"),)
-        address.uf = (get_address_info(data_address_info, "uf"),)
-        address.city = (get_address_info(data_address_info, "localidade"),)
-
-        db.session.commit()
-
-    if name or email or second_name or department_id:
         if name:
             employee.name = name
         if second_name:
             employee.second_name = second_name
-        if email:
-            employee.email = email
-        if department_id:
-            employee.department_id = department_id
 
-        employee.address_id = address.id
+    # Atualização dos dados de endereço
+    if address_data:
+        address = Address.query.filter_by(id=employee.address_id).first()
+        if address is None:
+            return jsonify({"error": "Endereço vinculado ao funcionário não encontrado"}), 404
+
+        neighborhood = address_data.get("neighborhood")
+        number = address_data.get("number")
+        street = address_data.get("street")
+        complement = address_data.get("complement")
+        zipcode = address_data.get("zipcode")
+
+        if neighborhood:
+            address.neighborhood = neighborhood
+        if number:
+            address.number = number
+        if street:
+            address.street = street
+        if complement:
+            address.complement = complement
+
+        if zipcode:
+            data_address_info = validate_update_address(zipcode)
+            if (
+                isinstance(data_address_info, tuple) and "error" in data_address_info[0]
+            ) or ("erro" in data_address_info):
+                return jsonify({"error": "CEP inválido"}), 400
+
+            address.zipcode = get_address_info(data_address_info, "cep")
+            address.uf = get_address_info(data_address_info, "uf")
+            address.city = get_address_info(data_address_info, "localidade")
+
+    if any([employee_data, address_data]):
         employee.date_time_updated = datetime.now()
-
         db.session.commit()
         return employee_detail_response(employee), 201
-    else:
-        return jsonify({"message": "Nenhum dado para atualização fornecido"}), 400
+
+    return jsonify({"message": "Nenhum dado para atualização fornecido"}), 400
+
 
 
 @app.route("/api/funcionario/<id>", methods=["DELETE"])

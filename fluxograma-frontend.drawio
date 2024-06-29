@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2024-06-25T00:30:01.303Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="Y49IzDCBn9VEYeSIeJel" version="24.6.2" type="device">
+<mxfile host="app.diagrams.net" modified="2024-06-29T20:54:24.494Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="-jfNTlMrGZ0_5PeGm950" version="24.6.2" type="device">
   <diagram name="Página-1" id="mQfp9ySGgmR8H0wvH6xC">
-    <mxGraphModel dx="2739" dy="1015" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3873" dy="935" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="O7gEAXPN0o9J1NnL75SC-1">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="O7gEAXPN0o9J1NnL75SC-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="433" y="160" />
@@ -12,7 +12,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="_H6RiOKsCRqZKMG_1P8V-9">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="cTaWVgaZwqELDEjk1Sf7-2" target="_H6RiOKsCRqZKMG_1P8V-9" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="433" y="664" />
@@ -22,7 +22,7 @@
         <mxCell id="cTaWVgaZwqELDEjk1Sf7-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://viacep.com.br/estatico/images/viacep.png.pagespeed.ce.I80LiA6qpr.png;" parent="1" vertex="1">
           <mxGeometry x="230" y="410" width="406.58" height="102" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cTaWVgaZwqELDEjk1Sf7-5" target="_H6RiOKsCRqZKMG_1P8V-9">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="cTaWVgaZwqELDEjk1Sf7-5" target="_H6RiOKsCRqZKMG_1P8V-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="cTaWVgaZwqELDEjk1Sf7-5" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" parent="1" vertex="1">
@@ -31,7 +31,7 @@
         <mxCell id="cTaWVgaZwqELDEjk1Sf7-7" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;API &amp;lt; ~ &amp;gt; ViaCEP&lt;/h1&gt;&lt;p&gt;Regras para informação de cep&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - A consulta REST realizada através viacep.com.br/ws/&amp;lt;CEP&amp;gt;/json/&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - POST ( Criação )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - PUT ( Atualização )&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; - dados de uf, estado e cidade de acordo com retorno da api&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-320" y="440" width="460" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="cTaWVgaZwqELDEjk1Sf7-2">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="cTaWVgaZwqELDEjk1Sf7-2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="-397" y="160" />
@@ -39,7 +39,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="_H6RiOKsCRqZKMG_1P8V-9">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="O7gEAXPN0o9J1NnL75SC-1" target="_H6RiOKsCRqZKMG_1P8V-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="O7gEAXPN0o9J1NnL75SC-1" value="" style="verticalLabelPosition=bottom;aspect=fixed;html=1;shape=mxgraph.salesforce.web;" parent="1" vertex="1">
@@ -48,23 +48,23 @@
         <mxCell id="O7gEAXPN0o9J1NnL75SC-11" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;APP &amp;lt; ~ &amp;gt; ViaCEP&lt;/h1&gt;&lt;p&gt;Regras para informação de cep&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - A consulta REST realizada através viacep.com.br/ws/&amp;lt;CEP&amp;gt;/json/&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; - Resultado retorno usado para auto preenchimento dos demais campos de endereço&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-310" y="180" width="560" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;APP &amp;lt; ~ &amp;gt; API&lt;/h1&gt;&lt;p&gt;&lt;b&gt;Funcionalidades entre aplicações&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Funcionario&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; POST&amp;nbsp; &amp;nbsp;/api/funcionario&amp;nbsp; &amp;nbsp; &amp;nbsp; Cria um novo funcionário&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; DELETE /api/funcionario/{id} Exclui um funcionário existente&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET ID /api/funcionario/{id} Detalhes do funcionário&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; PUT&amp;nbsp; &amp;nbsp; /api/funcionario/{id} Atualiza um funcionário existente&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET&amp;nbsp; &amp;nbsp; /api/funcionarios&amp;nbsp; &amp;nbsp; &amp;nbsp;Listando funcionários&lt;/p&gt;&lt;p&gt;&lt;b&gt;Departamento&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET /api/departamentos&amp;nbsp; Lista todos os departamentos&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-827" y="301" width="453" height="320" as="geometry" />
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;APP &amp;lt; ~ &amp;gt; API&lt;/h1&gt;&lt;p&gt;&lt;b&gt;Funcionalidades entre aplicações&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Funcionario&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; POST&amp;nbsp; &amp;nbsp;/api/funcionario&amp;nbsp; &amp;nbsp; &amp;nbsp; Cria um novo funcionário&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; DELETE /api/funcionario/{id} Exclui um funcionário existente&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET ID /api/funcionario/{id} Detalhes do funcionário&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; PUT&amp;nbsp; &amp;nbsp; /api/funcionario/{id} Atualiza um funcionário existente&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET&amp;nbsp; &amp;nbsp; /api/funcionarios&amp;nbsp; &amp;nbsp; &amp;nbsp;Listando funcionários&lt;/p&gt;&lt;p&gt;&lt;b&gt;Departamento&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; GET /api/departamentos&amp;nbsp; Lista todos os departamentos&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-850" y="301" width="453" height="320" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="O7gEAXPN0o9J1NnL75SC-1">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="O7gEAXPN0o9J1NnL75SC-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="cTaWVgaZwqELDEjk1Sf7-2">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="cTaWVgaZwqELDEjk1Sf7-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="cTaWVgaZwqELDEjk1Sf7-5">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="_H6RiOKsCRqZKMG_1P8V-9" target="cTaWVgaZwqELDEjk1Sf7-5" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="-406" y="869" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_H6RiOKsCRqZKMG_1P8V-9" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/long-shadow-web-icons/512/python-128.png" vertex="1" parent="1">
+        <mxCell id="_H6RiOKsCRqZKMG_1P8V-9" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/long-shadow-web-icons/512/python-128.png" parent="1" vertex="1">
           <mxGeometry x="-480" y="590" width="148" height="148" as="geometry" />
         </mxCell>
       </root>

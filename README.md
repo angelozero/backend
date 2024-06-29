@@ -25,7 +25,7 @@
 - ### Subindo o banco via Docker
     - Dentro da pasta `backend` executar o seguinte compando
         ```bash
-        docker compose up -d employee_db
+        docker compose up -d
         ```
 --- 
 ## Configurações iniciais - Local  
