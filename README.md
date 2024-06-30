@@ -23,10 +23,7 @@
     - Acessar a rota `http://localhost:8080/servico_da_api` direto no navegador ou utilize o [Postman](https://www.postman.com/downloads/) e importe o arquivo [postman_collection.json](https://github.com/angelozero/backend/blob/main/postman_collection.json) disponibilizado no projeto.
 
 - ### Subindo o banco via Docker
-    - Dentro da pasta `backend` executar o seguinte compando
-        ```bash
-        docker compose up -d
-        ```
+    - Acesse [PostgresSQL - Docker](https://hub.docker.com/_/postgres)
 --- 
 ## Configurações iniciais - Local  
 - ### Executando a aplicação localmente
