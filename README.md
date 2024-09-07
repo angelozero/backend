@@ -75,6 +75,12 @@
             pip3 install marshmallow-sqlalchemy
             pip3 install faker    
             pip3 install requests
+            pip3 install joblib
+            pip3 install pytest
+            pip3 install hypothesis
+            pip3 install numpy
+            pip3 install scikit-learn
+            pip3 install pandas
             ```
 ---
 - ###  Executando a API via terminal
@@ -170,14 +176,121 @@
                 except Exception as err:
                     return {"error": f"API CEP - An error occurred: {err}"}
     ```
-    - Fluxograma
-        ![fluxograma-via-cep](./images/fluxograma-via-cep.png)
+
+## Machine Learning 
+- Para informações de como o modelo de predição é gerado acesse o projeto [AngeloZero - Machine Learning](https://github.com/angelozero/machine_learning)
+
+- O trecho a seguir permite fazer previsões sobre a probabilidade de um funcionário deixar a empresa com base em diversas características, usando um modelo de machine learning previamente treinado.
+
+```python
+import joblib
+import numpy as np
+import pandas as pd 
+```
+
+```python
+# Carregar o modelo
+model = joblib.load('best_model_employee_attrition.pkl')
+feature_names = joblib.load('best_model_employee_feature_names.pkl')
+```
+
+```python
+@app.route('/api/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+
+    # Criando um DataFrame a partir dos dados recebidos
+    input_data = pd.DataFrame({
+        'satisfaction_level': [safe_float(data.get('satisfaction_level'))],
+        'last_evaluation': [safe_float(data.get('last_evaluation'))],
+        'number_project': [safe_int(data.get('number_project'))],
+        'average_montly_hours': [safe_int(data.get('average_montly_hours'))],
+        'time_spend_company': [safe_int(data.get('time_spend_company'))],
+        'work_accident': [safe_int(data.get('work_accident'))],
+        'promotion_last_5years': [safe_int(data.get('promotion_last_5years'))],
+        'dept': [data.get('dept', '')],  
+        'salary': [data.get('salary', '')]
+    })
+
+    # Codificação One-Hot para 'dept'
+    dept_dummies = pd.get_dummies(input_data['dept'], prefix='dept')
+    input_data = pd.concat([input_data, dept_dummies], axis=1)
+    input_data.drop('dept', axis=1, inplace=True)
+
+    # Codificação Ordinal para 'salary'
+    salary_mapping = {'low': 0, 'medium': 1, 'high': 2}
+    input_data['salary'] = input_data['salary'].map(salary_mapping)
+    
+    # Asegurando que a entrada possui a mesma estrutura que o modelo
+    input_data = input_data.reindex(columns=feature_names, fill_value=0)
+
+    # Realizando a predição
+    prediction = model.predict(input_data)
+    
+    # Armazenando o resultado em uma variável
+    result = int(prediction[0])
+
+    # Retornando a variável
+    return jsonify({'prediction': result})
+```
+
+### Teste com PytTest
+
+```python
+import joblib
+import numpy as np
+import pandas as pd
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
+# Carregando o modelo
+model, model_columns = joblib.load('best_model_with_columns.pkl')
+
+# Função de teste
+def test_model_performance():
+    # Gerando dados de teste fictícios (ou carregando um dataset de teste real)
+    X_test_sample = pd.DataFrame({
+        'last_evaluation': [0.7, 0.5, 0.3],
+        'number_project': [3, 2, 5],
+        'average_montly_hours': [150, 200, 100],
+        'time_spend_company': [3, 2, 5],
+        'Work_accident': [0, 1, 0],
+        'promotion_last_5years': [0, 1, 0],
+        'dept_IT': [1, 0, 0],
+        'dept_sales': [0, 1, 0],
+        'salary_low': [1, 0, 0],
+        'salary_medium': [0, 1, 0],
+        'salary_high': [0, 0, 1]
+    })
+
+    # Valores reais de satisfação (1 para satisfeito, 0 para insatisfeito)
+    y_test_sample = np.array([1, 0, 0])  
+
+    # Certifique-se de que as colunas estão na mesma ordem do modelo
+    X_test_sample = X_test_sample.reindex(columns=model_columns, fill_value=0)
+
+    # Predições do modelo
+    y_pred = model.predict(X_test_sample)
+
+    # Métricas de desempenho
+    accuracy = accuracy_score(y_test_sample, y_pred)
+    precision = precision_score(y_test_sample, y_pred)
+    recall = recall_score(y_test_sample, y_pred)
+
+    # Limites aceitáveis
+    assert accuracy > 0.60, f"Acurácia do modelo abaixo do esperado: {accuracy:.2f}"
+    assert precision <= 0.0, f"Precisão do modelo abaixo do esperado: {precision:.2f}"
+    assert recall <= 0.0, f"Recall do modelo abaixo do esperado: {recall:.2f}"
+```
+
+## Fluxograma
+- Mapa do fluxograma no backend
+![fluxograma-via-cep](./images/fluxograma-backend.drawio.png)
         
 
 ## Swagger
 - Acessem em http://localhost:8080/apidocs/
     ![swagger](./images/swagger.png)
-
+    
 
 ## Postman
 - Importar para dentro do postman o arquivo `postman_collection.json`
@@ -198,3 +311,9 @@
 | Marshmallow Sqlalchemy | https://marshmallow-sqlalchemy.readthedocs.io/en/latest/ |
 | Faker | https://pypi.org/project/Faker/ |
 | Requests | https://pypi.org/project/requests/ |
+| Joblib | https://pypi.org/project/joblib/ |
+| Pytest | https://pypi.org/project/pytest/ |
+| Hypothesis | https://pypi.org/project/hypothesis/ |
+| Numpy | https://pypi.org/project/numpy/ |
+| Scikit Lean | https://pypi.org/project/scikit-learn/ |
+| Pandas | https://pandas.pydata.org/docs/getting_started/install.html |

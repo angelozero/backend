@@ -17,6 +17,8 @@ tags:
     description: Operações relacionadas a funcionários
   - name: Departamentos
     description: Operações relacionadas a departamentos
+  - name: Satisfação
+    description: Operações relacionadas a predição de satisfação de um funcinário
 
 paths:
   /api/funcionarios:
@@ -213,8 +215,63 @@ paths:
             $ref: '#/definitions/Department'
         '404':
           description: Departamento não encontrado
+  /api/predict:
+    post:
+      tags:
+        - Predição
+      summary: Consulta uma predição
+      parameters:
+        - name: body
+          in: body
+          description: Dados para predição
+          required: true
+          schema:
+            $ref: '#/definitions/Prediction'
+      responses:
+        '200':
+          description: Predição calculada com sucesso
+          schema:
+            $ref: '#/definitions/PredictionResponse'
 
 definitions:
+  Prediction:
+    type: object
+    properties:
+      satisfaction_level:
+        type: number
+        description: Nível de satisfação do funcionário
+      last_evaluation:
+        type: number
+        description: Avaliação mais recente do funcionário
+      number_project:
+        type: integer
+        description: Número de projetos em que o funcionário está envolvido
+      average_montly_hours:
+        type: integer
+        description: Média de horas mensais trabalhadas pelo funcionário
+      time_spend_company:
+        type: integer
+        description: Tempo que o funcionário passou na empresa (em anos)
+      work_accident:
+        type: integer
+        description: Indica se o funcionário teve um acidente de trabalho (0 = não, 1 = sim)
+      promotion_last_5years:
+        type: integer
+        description: Indica se o funcionário foi promovido nos últimos 5 anos (0 = não, 1 = sim)
+      dept:
+        type: string
+        description: Departamento do funcionário
+      salary:
+        type: string
+        description: Nível salarial do funcionário (ex. 'low', 'medium', 'high')
+  
+  PredictionResponse:
+    type: object
+    properties:
+      prediction:
+        type: number
+        description: Resultado da predição
+
   UpdateAddress:
     type: object
     properties:
