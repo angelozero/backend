@@ -195,22 +195,24 @@ feature_names = joblib.load('best_model_employee_feature_names.pkl')
 ```
 
 ```python
-@app.route('/api/predict', methods=['POST'])
+@app.route("/api/predict", methods=["POST"])
 def predict():
     data = request.get_json()
 
     # Criando um DataFrame a partir dos dados recebidos
-    input_data = pd.DataFrame({
-        'satisfaction_level': [safe_float(data.get('satisfaction_level'))],
-        'last_evaluation': [safe_float(data.get('last_evaluation'))],
-        'number_project': [safe_int(data.get('number_project'))],
-        'average_montly_hours': [safe_int(data.get('average_montly_hours'))],
-        'time_spend_company': [safe_int(data.get('time_spend_company'))],
-        'work_accident': [safe_int(data.get('work_accident'))],
-        'promotion_last_5years': [safe_int(data.get('promotion_last_5years'))],
-        'dept': [data.get('dept', '')],  
-        'salary': [data.get('salary', '')]
-    })
+    input_data = pd.DataFrame(
+        {
+            "satisfaction_level": [float(data["satisfaction_level"])],
+            "last_evaluation": [float(data["last_evaluation"])],
+            "number_project": [int(data["number_project"])],
+            "average_montly_hours": [int(data["average_montly_hours"])],
+            "time_spend_company": [int(data["time_spend_company"])],
+            "work_accident": [int(data["work_accident"])],
+            "promotion_last_5years": [int(data["promotion_last_5years"])],
+            "dept": [data["dept"]],
+            "salary": [data["salary"]],
+        }
+    )
 
     # Codificação One-Hot para 'dept'
     dept_dummies = pd.get_dummies(input_data['dept'], prefix='dept')
@@ -220,18 +222,18 @@ def predict():
     # Codificação Ordinal para 'salary'
     salary_mapping = {'low': 0, 'medium': 1, 'high': 2}
     input_data['salary'] = input_data['salary'].map(salary_mapping)
-    
+
     # Asegurando que a entrada possui a mesma estrutura que o modelo
     input_data = input_data.reindex(columns=feature_names, fill_value=0)
 
     # Realizando a predição
     prediction = model.predict(input_data)
-    
+
     # Armazenando o resultado em uma variável
     result = int(prediction[0])
 
     # Retornando a variável
-    return jsonify({'prediction': result})
+    return jsonify({"prediction": result})
 ```
 
 ### Teste com PytTest
